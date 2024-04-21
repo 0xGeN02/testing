@@ -1,9 +1,7 @@
 const SubscriberModel = require('../models/subscriber.model');
 
 class SubscriberService {
-    constructor() {
-
-    }
+    //constructor() {}
 
     static async createSubscriber(rawData) {
         if (!this.emailValidation(rawData.email)) {
@@ -35,7 +33,7 @@ class SubscriberService {
 
     static emailValidation(enteredEmail){
         console.log(enteredEmail)
-        var mail_format = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+        var mail_format = /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/;
 
         if(enteredEmail.match(mail_format))
         {

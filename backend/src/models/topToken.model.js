@@ -49,4 +49,4 @@ class TopTokenModel {
     }
 }
 
-module.exports = new TopTokenModel;
+module.exports = new TopTokenModel();

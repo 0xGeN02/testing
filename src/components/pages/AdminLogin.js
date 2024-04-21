@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import axios from "axios";
 import { Input, Form } from 'antd';
 import { 
@@ -10,9 +10,9 @@ import openNotification from "../helpers/notification";
 import setAuthToken from "../../utils/setAuthToken";
 import Wallet from "../../utils/wallet";
 import { SERVER_URL } from "../../constants/env";
-import { motion } from "framer-motion";
+//import { motion } from "framer-motion";
 
-const { Password,  } = Input;
+//const { Password,  } = Input;
 const wallet = new Wallet();
 
 function LogIn() {
@@ -58,7 +58,7 @@ function LogIn() {
         <div className="w-full h-screen flex">
             <div className="hidden lg:flex w-8/12 items-center justify-center p-20 bg-gray-100">
                 <div className="w-full px-20">
-                    <img className="max-w-full" src={adminLoginImage} />
+                    <img alt='' className="max-w-full" src={adminLoginImage} />
                 </div>
             </div>
             <div className="w-full flex lg:w-4/12 item-center justify-center">

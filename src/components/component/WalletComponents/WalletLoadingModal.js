@@ -1,5 +1,5 @@
 import { useState,useEffect } from 'react';
-import { Button, Row, Col } from 'antd';
+import { /*Button,*/ Row, /*Col*/ } from 'antd';
 import ReactLoading from 'react-loading';
 function WalletLoadingModal(props) {
     const [show, setShow] = useState("block");

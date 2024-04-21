@@ -2,7 +2,7 @@
 const query = require('../db/db-connection');
 const { multipleColumnSet } = require('../utils/common.utils');
 const Role = require('../utils/userRoles.utils');
-const HttpException = require('../utils/HttpException.utils');
+//const HttpException = require('../utils/HttpException.utils');
 class UserModel {
     tableName = 'user';
 
@@ -82,4 +82,4 @@ class UserModel {
     }
 }
 
-module.exports = new UserModel;
+module.exports = new UserModel();

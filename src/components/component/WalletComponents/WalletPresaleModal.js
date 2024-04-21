@@ -1,17 +1,17 @@
-import { useState,useEffect, useCallback, useContext } from 'react';
-import { Button, Row, Col, Input, Select } from 'antd';
+import { useState, useContext } from 'react';
+import { Button, Row, Col } from 'antd';
 import Icon from "react-crypto-icons";
 import WalletModal from "../WalletModal";
-import axios from 'axios';
+// import axios from 'axios';
 import { useTranslation } from 'react-i18next';
-import {getTokenBaseInfo, getTokenPriceInUsd} from "../../../utils/tokenUtils";
+// import {getTokenBaseInfo, getTokenPriceInUsd} from "../../../utils/tokenUtils";
 import {PresaleContext} from '../../providers/PresaleProvider';
-const { Option } = Select;
+//const { Option } = Select;
 
 function WalletPresaleModal(props) {
-    const publicKey = localStorage.publicKey
-    const [t,i18n] = useTranslation();
-    const getTokenInfoBuyFrom = useCallback(()=>{},[]);
+    //const publicKey = localStorage.publicKey
+    const [t,/*i18n*/] = useTranslation();
+    //const getTokenInfoBuyFrom = useCallback(()=>{},[]);
     const presaleData = useContext(PresaleContext);
     const [mode, setMode] = useState(0);
 
@@ -58,7 +58,7 @@ function WalletPresaleModal(props) {
                             presaleData.presaleData.symbol?
                             <>
                                {presaleData.presaleData.symbol.toLowerCase()==="mgl"?
-                                  <img src="/assets/img/mark2.png" className="w-7 inline mr-4"/>
+                                  <img alt="" src="/assets/img/mark2.png" className="w-7 inline mr-4"/>
                                 :
                                   <Icon className="inline mr-4" name={presaleData.presaleData.symbol.toLowerCase()} size={30} />
                               }
@@ -109,7 +109,7 @@ function WalletPresaleModal(props) {
             </Row>
             <p>{`1${presaleData.presaleData.symbol} = ${presaleData.presaleData.price} ${"USD"}`}</p>
             {
-                mode==0?
+                mode===0?
                 <>
                     <p className="text-sm  mt-4">Do you have BNB to complete this transaction?</p>
                     <Row gutter={16} className="text-center">

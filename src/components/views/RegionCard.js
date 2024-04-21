@@ -1,11 +1,11 @@
-import { Button ,Card,Row} from 'antd';
-import { motion } from "framer-motion"
+// import { Button ,Card,Row} from 'antd';
+// import { motion } from "framer-motion"
 import ReactCountryFlag from "react-country-flag"
 import { useTranslation } from 'react-i18next'
 import RegCard from '../component/RegCard';
 
 function RegionCard(props) {
-  const {t,i18n} = useTranslation();
+  const {t,} = useTranslation();
   const title=t("Where do you live?");
   const comment1=t("Before we start, please enter your current location of residence.");
   const subTitle=t("Country/Area of Residence");

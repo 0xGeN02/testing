@@ -1,10 +1,10 @@
-import { useState,useEffect } from 'react';
-import { Button, Row, Col, Input } from 'antd';
+import { useState} from 'react';
+import { Button, /*Row, Col,*/ Input } from 'antd';
 import WalletModal from ".//WalletModal";
-import axios from 'axios';
+//import axios from 'axios';
 import { useTranslation } from 'react-i18next';
 function WalletInputModal(props) {
-    const [t,i18n] = useTranslation();
+    const [t,/*i18n*/] = useTranslation();
     const [val,setVal] = useState("")
     
     return (

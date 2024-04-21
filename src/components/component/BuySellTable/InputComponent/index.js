@@ -1,5 +1,5 @@
 export default function InputElement(props) {
-    const { label, tokenName, isBtn} = props;
+    const { label, /*tokenName,*/ isBtn} = props;
     return (
       <div>
         <label htmlFor="price" className="block text-sm font-medium text-gray-700">

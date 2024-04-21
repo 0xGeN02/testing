@@ -2,7 +2,7 @@ const UserModel = require('../models/user.model');
 const WalletModel = require('../models/wallet.model');
 const EmailVerifyModel = require('../models/emailVerify.model');
 const ManageUserModel = require('../models/manageUser.model');
-const HttpException = require('../utils/HttpException.utils');
+//const HttpException = require('../utils/HttpException.utils');
 const { validationResult } = require('express-validator');
 const nodemailer = require('nodemailer');
 const Role = require('../utils/userRoles.utils');
@@ -11,7 +11,7 @@ const Wallet = require('../utils/wallet.utils');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const dotenv = require('dotenv');
-const { raw } = require('sqlstring');
+//const { raw } = require('sqlstring');
 const emailService = require('./emailer.service')
 const i18n = require('i18n')
 
@@ -362,7 +362,7 @@ class UserService {
 
     
     static emailValidation(enteredEmail){
-        var mail_format = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+        var mail_format = /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/;
 
         if(enteredEmail.match(mail_format))
         {
@@ -373,4 +373,4 @@ class UserService {
     }
 }
 
-module.exports = UserService
+module.exports = UserService;

@@ -1,4 +1,4 @@
-import { ReloadOutlined } from '@ant-design/icons';
+// import { ReloadOutlined } from '@ant-design/icons';
 import React, { useState, useEffect } from "react";
 import { useTranslation } from 'react-i18next';
 import axios from 'axios';
@@ -12,10 +12,10 @@ import BuySellList from '../../component/BuySellList';
 import { SERVER_URL } from '../../../constants/env';
 
 function Swap() {
-    const [t,i18n] = useTranslation();
+    const [t,/*i18n */] = useTranslation();
     const [submenu,setSubmenu]=useState(false);
     const [buysellStatus, setBuysellStatus] = useState(false);
-    const [amountStatus, setAmountStatus] = useState(0);
+    //const [amountStatus, setAmountStatus] = useState(0);
     const [isLoading, setIsLoading] = useState(false);
     const [noData, setNoData] = useState(false);
     const [orderList, setOrderList] = useState(null);
@@ -29,11 +29,11 @@ function Swap() {
         {value: "USD", name: "USD", image: ""},
     ]
 
-    const paymentList = [
-        {value: "first", name: "All Payment"},
-        {value: "second", name: "Second"},
-        {value: "third", name: "Third"},
-    ]
+    // const paymentList = [
+    //     {value: "first", name: "All Payment"},
+    //     {value: "second", name: "Second"},
+    //     {value: "third", name: "Third"},
+    // ]
 
     const changePageHandler = (page, pageSize) => {
         setPageNum(page);
@@ -70,13 +70,16 @@ function Swap() {
         }
     }
 
-    useEffect(async () => {
-        getOrderData(pageNum, perPage);
-    }, [])
+    useEffect(() => {
+        async function fetchData() {
+            await getOrderData(pageNum, perPage);
+        }
+        fetchData();
+    }, [pageNum, perPage]);
 
     return (
         <div className="relative mb-0 bg-gray-50 h-full flex flex-col">
-            <img src="/assets/img/background2.png" className="w-screen absolute top-0 back"/>
+            <img alt="" src="/assets/img/background2.png" className="w-screen absolute top-0 back"/>
             {/*<img src="./assets/img/earth2.png" className="absolute w-2/3 bottom-0 right-0" />*/}
             <div className="w-full bg-white">
                 <Nav className="w-11/12 xl:w-5/6 m-auto" setSubmenu={setSubmenu}/>

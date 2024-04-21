@@ -2,7 +2,8 @@
 
 const query = require('../db/db-connection');
 const { multipleColumnSet } = require('../utils/common.utils');
-const Role = require('../utils/userRoles.utils');
+//const Role = require('../utils/userRoles.utils');
+const HttpException = require('../utils/HttpException.utils');
 
 class TransactionModel {
     tableName = 'transaction';
@@ -95,4 +96,4 @@ class TransactionModel {
     }
 }
 
-module.exports = new TransactionModel;
+module.exports = new TransactionModel();

@@ -1,10 +1,10 @@
 import { LineChart, Line } from "recharts";
-import { TinyLine  } from '@ant-design/charts';
-import { Table, Tag, Space,Row,Col } from 'antd';
-import React, { useState, useEffect,useRef } from 'react';
+//import { TinyLine  } from '@ant-design/charts';
+import { Row,Col } from 'antd';
+import React, { useEffect } from 'react';
 import Icon from "react-crypto-icons";
-import { useTranslation } from 'react-i18next'
-const { Column, ColumnGroup } = Table;
+// import { useTranslation } from 'react-i18next'
+// const { Column, ColumnGroup } = Table;
 
 const tableData = [
  {
@@ -117,14 +117,14 @@ const datachart = [
   //   smooth: true,
   // };
 function MarketTrend() {
-  const [data, setData] = useState([]);
-  const chart = useRef(null);
+  //const [data, setData] = useState([]);
+  //const chart = useRef(null);
   useEffect(() => {
     
   }, []);
-  const asyncFetch = () => {
-    setData([{value:0,date:1},{value:15,date:2},{value:9,date:3},{value:2,date:4},{value:11,date:5},{value:3,date:6},{value:2,date:7},{value:10,date:8},{value:6,date:9},{value:4,date:10}])
-  };
+  // const asyncFetch = () => {
+  //   setData([{value:0,date:1},{value:15,date:2},{value:9,date:3},{value:2,date:4},{value:11,date:5},{value:3,date:6},{value:2,date:7},{value:10,date:8},{value:6,date:9},{value:4,date:10}])
+  // };
   
   return (
   

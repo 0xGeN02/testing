@@ -1,14 +1,14 @@
-import { Button, Col,Row,Typography } from 'antd';
-import {useState} from 'react';
-import { Link ,useParams} from "react-router-dom";
-import axios from 'axios';
+import { Col,Row } from 'antd';
+// import {useState} from 'react';
+// import { Link ,useParams} from "react-router-dom";
+//import axios from 'axios';
 import {CgFileDocument} from "react-icons/cg"
 import {MdInsertLink} from "react-icons/md"
 import { useTranslation } from 'react-i18next'
-const { Paragraph } = Typography;
+//const { Paragraph } = Typography;
 function WalletBuy(props) {
-  const [publicKey,setPublicKey]=useState(localStorage.getItem("publicKey"));
-  const [t,i18n] = useTranslation();
+  //const [publicKey,setPublicKey]=useState(localStorage.getItem("publicKey"));
+  const [t,/*i18n*/] = useTranslation();
 
   return (
     <>
@@ -29,7 +29,7 @@ function WalletBuy(props) {
           <p>{t("2. Select currency BUSD (Bep20).")}</p>
         </Col>
         <Col span={12}>
-         <img src="/assets/img/moonhere.jpg" className="shadow border-2 border-white "/>
+         <img alt='' src="/assets/img/moonhere.jpg" className="shadow border-2 border-white "/>
         </Col>
       </Row >
 
@@ -38,7 +38,7 @@ function WalletBuy(props) {
           <p>{t("3. Copy your wallet address above and paste here.")}</p>
         </Col>
         <Col span={12}>
-          <img src="/assets/img/moonaddress.jpg" className="shadow border-2 border-white "/>
+          <img alt='' src="/assets/img/moonaddress.jpg" className="shadow border-2 border-white "/>
         </Col>
       </Row >
 
@@ -47,7 +47,7 @@ function WalletBuy(props) {
           <p>{t("4. Follow rest of Moonpay instructions.")}</p>
         </Col>
         <Col span={12}>
-          <img src="/assets/img/moonemail.jpg" className="shadow border-2 border-white "/>
+          <img alt='' src="/assets/img/moonemail.jpg" className="shadow border-2 border-white "/>
         </Col>
       </Row >
 

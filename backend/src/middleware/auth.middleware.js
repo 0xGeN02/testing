@@ -1,4 +1,4 @@
-const HttpException = require('../utils/HttpException.utils');
+//const HttpException = require('../utils/HttpException.utils');
 const UserModel = require('../models/user.model');
 const jwt = require('jsonwebtoken');
 const dotenv = require('dotenv');
@@ -26,7 +26,7 @@ const auth = (...roles) => {
             }
 
             // check if the current user is the owner user
-            const ownerAuthorized = req.params.id == user.id;
+            const ownerAuthorized = req.params.id === user.id;
             // if the current user is not the owner and
             // if the user role don't have the permission to do this action.
             // the user will get this error

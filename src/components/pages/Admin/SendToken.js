@@ -1,17 +1,17 @@
-import { Layout, Table, Row, Col, Space, Button, Select, Modal, Input, Form, Tabs } from 'antd';
-import { DownOutlined, MailOutlined, LockOutlined} from '@ant-design/icons';
-import { useEffect, useState } from 'react';
+import { Layout, /*Table,*/ Row, Col, Space, Button, /*Select, Modal, Input, Form, Tabs*/ } from 'antd';
+// import { DownOutlined, MailOutlined, LockOutlined} from '@ant-design/icons';
+import { useEffect, useState, useCallback } from 'react';
 import {BsPlusLg} from "react-icons/bs";
 import axios from "axios";
 import { useTranslation } from 'react-i18next';
 import setAuthToken from "../../../utils/setAuthToken";
-import WalletUtil from "../../../utils/wallet";
+//import WalletUtil from "../../../utils/wallet";
 import { SERVER_URL } from "../../../constants/env";
 import openNotification from "../../helpers/notification";
 import AdminSendTokenRow from "../../component/AdminSendTokenRow";
-import {getTokenBaseInfo,getTokenType,getEstimatedGasLimit} from "../../../utils/tokenUtils";
+import {getTokenBaseInfo,/*getTokenType,getEstimatedGasLimit*/} from "../../../utils/tokenUtils";
 const { Content } = Layout;
-const { Option } = Select;
+//const { Option } = Select;
 
 const networks=[
     {name:"Mainnet (Polygon)",url:"polygon-mainnet",explorer:"https://polygonscan.com/"},
@@ -24,28 +24,17 @@ const networks=[
 function SendToken() {
     const [index,setIndex] = useState(1)
     const [tokens,setTokens]=useState([]);
-    const [network, setNetwork] = useState(networks[2]);
+    const [network] = useState(networks[2]);
     const [tokenNames, setTokenNames] = useState([]);
-    const [loading,setLoading] = useState(false);
-    const [connection,setConnection] = useState(true);
-    const [publicKey,setPublicKey]=useState(localStorage.getItem("publicKey"));
+    const [setLoading] = useState(false);
+    const [setConnection] = useState(true);
+    const [publicKey]=useState(localStorage.getItem("publicKey"));
     const [canDo, setCanDo] = useState(false)
-    const wallet = new WalletUtil();
+    //const wallet = new WalletUtil();
     const serverUrl =SERVER_URL;
-    const [t,i18n] = useTranslation();
+    const [t,/*i18n*/] = useTranslation();
     
-    useEffect(()=>{
-        getAssets();
-        if(!publicKey)
-            openNotification("Wallet Access failed.","You are not allowed!",false,()=>window.location.href="/walletMain")
-    },[]);
-
-    useEffect(() => {
-        if(tokens.length>0)
-            getTokenInfo();
-    },[tokens])
-
-    const getAssets = async ()=>{
+    const getAssets = useCallback(async ()=>{
         setConnection(true);
         setLoading(true);
         setAuthToken(localStorage.jwtToken)
@@ -61,9 +50,9 @@ function SendToken() {
         .catch(err=>{
             setConnection(false);
         })
-    }
+    },[network.url, publicKey, serverUrl, setConnection, setLoading])
     
-    const getTokenInfo = async()=>{
+    const getTokenInfo = useCallback(async()=>{
         let oldTokensInfo=[];
         for(var i = 0; i < tokens.length; i++ ) {
             let init="";
@@ -76,7 +65,18 @@ function SendToken() {
             oldTokensInfo.push(init);
         }
         setTokenNames(oldTokensInfo);
-    }
+    },[network.url, tokens])
+
+    useEffect(()=>{
+        getAssets();
+        if(!publicKey)
+            openNotification("Wallet Access failed.","You are not allowed!",false,()=>window.location.href="/walletMain")
+    },[getAssets, publicKey]);
+
+    useEffect(() => {
+        if(tokens.length>0)
+            getTokenInfo();
+    },[tokens, getTokenInfo])
 
     const addCount = () => {
         setIndex(index + 1);

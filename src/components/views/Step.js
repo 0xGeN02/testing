@@ -1,12 +1,12 @@
-import { Button,Row,Col } from 'antd';
-import { motion } from "framer-motion"
-import { Link } from "react-router-dom";
+// import { Button,Row,Col } from 'antd';
+// import { motion } from "framer-motion"
+// import { Link } from "react-router-dom";
 import { useTranslation } from 'react-i18next'
 import {useState} from 'react'
 
 function Step() {
 
-  const {t,i18n} = useTranslation();
+  const {t,} = useTranslation();
   const [index, setIndex] = useState(0);
   const stepData = [
     {picUrl:"/assets/img/step1.png",step:t("Step 1"),subtitle:t("Get Started")},
@@ -26,7 +26,7 @@ function Step() {
           stepData.map((item,idx)=>(
             <div key={idx} className="w-full md:w-1/3 mb-8 text-center inline-block p-4">
               <div className="shadow  h-full w-full p-4">
-              <img src={item.picUrl} className="w-1/2 inline-block"/><br />
+              <img alt='' src={item.picUrl} className="w-1/2 inline-block"/><br />
               <span className="text-lg ">{item.step}</span><br />
               <span className="text-xl font-bold">{item.subtitle}</span><br />
              </div>

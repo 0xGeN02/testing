@@ -1,5 +1,5 @@
-import { useState,useEffect } from 'react';
-import { Button, Row, Col, Input, Form } from 'antd';
+import { useState } from 'react';
+import { Button/*, Row, Col*/, Input, Form } from 'antd';
 import WalletModal from ".//WalletModal";
 import axios from 'axios';
 import { useTranslation } from 'react-i18next';
@@ -7,11 +7,11 @@ import {SERVER_URL} from "../../constants/env";
 import openNotification from "../helpers/notification";
 import setAuthToken from "../../utils/setAuthToken";
 function WalletResetPasswordModal(props) {
-    const [t,i18n] = useTranslation();
+    const [t,/*i18n*/] = useTranslation();
     const [oldPassword,setOldPassword] = useState("");
     const [newPassword,setNewPassword] = useState("")
     const [form] = Form.useForm();
-    const [use,setUser] = useState(JSON.parse(localStorage.getItem("userInfo")));
+    const [use,/*setUser*/] = useState(JSON.parse(localStorage.getItem("userInfo")));
     const serverUrl=SERVER_URL;
     const reset=()=>{
     

@@ -1,5 +1,5 @@
-import { Button ,Card,Row} from 'antd';
-import {useState,useEffect} from "react"
+import { /*Button,*/Card/*,Row*/} from 'antd';
+//import {useState,useEffect} from "react"
 import { motion } from "framer-motion"
 function RegCard(props) {
 

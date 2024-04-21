@@ -1,9 +1,7 @@
 const IEOModel = require("../models/ieo.model");
-const { validationResult } = require('express-validator');
+//const { validationResult } = require('express-validator');
 class IEOService {
-    constructor() {
-
-    }
+//   constructor() {}
 
     static async createIEO(rawData) {
         try {

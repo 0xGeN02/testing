@@ -1,24 +1,24 @@
-import { Button,Row,Col} from 'antd';
-import { motion,useViewportScroll } from "framer-motion"
-import { Link, Navigate } from "react-router-dom";
+//import { Button,Row,Col} from 'antd';
+import { motion } from "framer-motion"
+import { Navigate } from "react-router-dom";
 import {useState} from "react"
-import {AiFillCloseCircle,AiOutlineArrowUp,AiOutlineArrowDown} from "react-icons/ai"
-import {BsCreditCard2Front,BsCash,BsPeople} from "react-icons/bs"
+// import {AiFillCloseCircle,AiOutlineArrowUp,AiOutlineArrowDown} from "react-icons/ai"
+// import {BsCreditCard2Front,BsCash,BsPeople} from "react-icons/bs"
 import { useTranslation } from 'react-i18next'
 import PairCardButton from "../component/PairCardButton";
 import Nav from "../component/Nav"
 import openNotification from "../helpers/notification";
 
 function Main(props) {
-  const {t,i18n} = useTranslation();
-  const pair=[
-    {title:"BNB/BUSD",percent:1.58,amount1:553.9,amount2:553.46},
-    {title:"BNB/BUSD",percent:1.58,amount1:553.9,amount2:553.46},
-    {title:"BNB/BUSD",percent:1.58,amount1:553.9,amount2:553.46},
-    {title:"BNB/BUSD",percent:1.58,amount1:553.9,amount2:553.46},
-    {title:"BNB/BUSD",percent:1.58,amount1:553.9,amount2:553.46},
-    {title:"BNB/BUSD",percent:1.58,amount1:553.9,amount2:553.46},
-  ];
+  const {t,/*i18n*/} = useTranslation();
+  // const pair=[
+  //   {title:"BNB/BUSD",percent:1.58,amount1:553.9,amount2:553.46},
+  //   {title:"BNB/BUSD",percent:1.58,amount1:553.9,amount2:553.46},
+  //   {title:"BNB/BUSD",percent:1.58,amount1:553.9,amount2:553.46},
+  //   {title:"BNB/BUSD",percent:1.58,amount1:553.9,amount2:553.46},
+  //   {title:"BNB/BUSD",percent:1.58,amount1:553.9,amount2:553.46},
+  //   {title:"BNB/BUSD",percent:1.58,amount1:553.9,amount2:553.46},
+  // ];
   
   const [regPage, setRegPage] = useState(false)
 
@@ -35,7 +35,7 @@ function Main(props) {
     <>
      {!regPage ? 
        <div className="relative mb-0">
-       <img src="/assets/img/background2.png" className="w-screen absolute top-0 back"/>
+       <img alt="" src="/assets/img/background2.png" className="w-screen absolute top-0 back"/>
        {/*<img src="./assets/img/earth2.png" className="absolute w-2/3 bottom-0 right-0" />*/}
        
          <div className="w-11/12 xl:w-5/6 m-auto ">

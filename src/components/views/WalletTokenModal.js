@@ -1,20 +1,20 @@
 import { useState,useEffect } from 'react';
-import { Button, Row, Col } from 'antd';
+import { Button, } from 'antd';
 import WalletModal from "../component/WalletModal";
 import axios from 'axios';
 import { useTranslation } from 'react-i18next';
 import setAuthToken from "../../utils/setAuthToken"
-import Wallet from "../../utils/wallet"
-import tokenList from "../../utils/polygon.json"
+// import Wallet from "../../utils/wallet"
+// import tokenList from "../../utils/polygon.json"
 import {SERVER_URL} from "../../constants/env";
 import {getTokenBaseInfo} from "../../utils/tokenUtils";
 function WalletTokenModal(props) {
-    const wallet = new Wallet()
+    //const wallet = new Wallet()
     const serverUrl = SERVER_URL
     const publicKey = localStorage.publicKey
-    const [t,i18n] = useTranslation();
+    const [t,] = useTranslation();
 
-    const [showWarn,setShowWarn]=useState(false);
+    const [showWarn,]=useState(false);
     const [tokenAddress,setTokenAddress]= useState("0x");
     const [tokenName,setTokenName]= useState("_");
     const [tokenSymbol,setTokenSymbol]= useState("_");
@@ -41,7 +41,7 @@ function WalletTokenModal(props) {
     const onAddress = async (e)=>{
         let typedAddress = e.target.value;
         setTokenAddress(typedAddress);
-        if (typedAddress.length == 42) {
+        if (typedAddress.length === 42) {
             let result = await getTokenBaseInfo(typedAddress, props.network);
             setTokenName(result.name);
             setTokenSymbol(result.symbol);

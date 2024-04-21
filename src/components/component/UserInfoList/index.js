@@ -1,5 +1,5 @@
-import {useEffect,useState,useRef} from "react";
-import avatarImage from '../../../assets/image/avatar.png';
+// import {useEffect,useState,useRef} from "react";
+// import avatarImage from '../../../assets/image/avatar.png';
 import noDataImage from '../../../assets/image/nodata.svg';
 
 function BuySellList(props) {
@@ -8,7 +8,7 @@ function BuySellList(props) {
         <div className="w-full">
             {
                 !items
-                    ? <div className="w-full flex justify-center"><div className="text-sm flex flex-col items-center"><img src={noDataImage} />No Ads</div></div>
+                    ? <div className="w-full flex justify-center"><div className="text-sm flex flex-col items-center"><img alt='' src={noDataImage} />No Ads</div></div>
                     : <div className="">
                         <div className="bg-gray-200 p-2 rounded-lg flex flex-col items-start">
                             <div className="w-full  rounded-lg mt-2 flex p-1">

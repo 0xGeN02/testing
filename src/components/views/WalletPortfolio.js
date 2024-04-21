@@ -1,35 +1,35 @@
 import React, { useState, useEffect } from 'react';
-import { Button,Row,Col,Tabs,Input } from 'antd';
-import {TiArrowSync} from "react-icons/ti";
-import { SearchOutlined ,CloseOutlined} from '@ant-design/icons';
-import {MdOutlineLightMode} from "react-icons/md";
+import { Row,Col,Tabs,Input } from 'antd';
+//import {TiArrowSync} from "react-icons/ti";
+import { SearchOutlined } from '@ant-design/icons';
+//import {MdOutlineLightMode} from "react-icons/md";
 import Icon from "react-crypto-icons";
 import openNotification from "../helpers/notification";
 import WalletTokenModal from "./WalletTokenModal";
 
-import axios from 'axios';
+// import axios from 'axios';
 import { useTranslation } from 'react-i18next';
-import setAuthToken from "../../utils/setAuthToken"
-import WalletUtil from "../../utils/wallet"
-import tokenList from "../../utils/polygon.json"
-import {SERVER_URL} from "../../constants/env";
+// import setAuthToken from "../../utils/setAuthToken"
+// import WalletUtil from "../../utils/wallet"
+// import tokenList from "../../utils/polygon.json"
+// import {SERVER_URL} from "../../constants/env";
 const { TabPane } = Tabs;
 
 function WalletPortfolio(props) {
 
-  const [t,i18n] = useTranslation();
+  const [t,] = useTranslation();
   const [modalShow,setModalShow] = useState(false);
 
-  var Tokens=[
-    {name:"MGL",price:100,balance:100},
-  ]
+  // var Tokens=[
+  //   {name:"MGL",price:100,balance:100},
+  // ]
   
   // const [balance,setBalance]=useState(props.balance);
-  const [price,setPrice]=useState([]);
-  const [network, setNetwork] = useState("polygon")
-  const publicKey = localStorage.publicKey
-  const wallet = new WalletUtil()
-  const serverUrl = SERVER_URL
+  // const [price,setPrice]=useState([]);
+  // const [network, setNetwork] = useState("polygon")
+  // const publicKey = localStorage.publicKey
+  // const wallet = new WalletUtil()
+  // const serverUrl = SERVER_URL
 
 
   const OperationsSlot = {
@@ -63,7 +63,7 @@ function WalletPortfolio(props) {
                       <Col span={6}>
                       {
                         item.name.toLowerCase()==="mgl"?
-                          <img src="/assets/img/mark2.png" className="w-7 inline mr-4"/>
+                          <img alt='' src="/assets/img/mark2.png" className="w-7 inline mr-4"/>
                         :
                           <Icon className="inline mr-4" name={item.name.toLowerCase()} size={30} />
                       }

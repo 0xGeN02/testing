@@ -1,25 +1,25 @@
-import { Button ,Card,Input,Row, Col,Checkbox,Form } from 'antd';
+import { Input,Form } from 'antd';
 import React, { useState, useEffect } from 'react';
-import { Link,useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import axios from "axios";
-import { List, message, Avatar, Skeleton, Divider } from 'antd';
+//import { List, message, Avatar, Skeleton, Divider } from 'antd';
 import { motion } from "framer-motion";
 import { 
   MailOutlined ,
-  SafetyOutlined,
+  /*SafetyOutlined,*/
   LockOutlined,
-  TeamOutlined ,
+  /*TeamOutlined ,
   EyeTwoTone,
-  EyeInvisibleOutlined} from '@ant-design/icons';
+EyeInvisibleOutlined*/} from '@ant-design/icons';
 import { useTranslation } from 'react-i18next'
 import RegCard from '../component/RegCard';
 import setAuthToken from "../../utils/setAuthToken";
 import openNotification from "../helpers/notification";
 import {SERVER_URL} from "../../constants/env";
-import Wallet from "../../utils/wallet";
-const wallet = new Wallet();
+// import Wallet from "../../utils/wallet";
+// const wallet = new Wallet();
 function ResetPassword(props) {
-  const [t,i18n] = useTranslation();
+  const [t,/*i18n*/] = useTranslation();
   const routeParams = useParams();
   const [email,setEmail] = useState("");
   const [password,setPassword] = useState("password");
@@ -31,7 +31,7 @@ function ResetPassword(props) {
     let url = routeParams.jxt;
     localStorage.setItem("jwtToken", JSON.stringify(url));
     setToken(url)
-  },[])
+  },[routeParams.jxt])
   const reset=()=>{
     return form.validateFields()
             .then((values) => {
@@ -77,7 +77,7 @@ function ResetPassword(props) {
           transition={{ duration: 2}}
         >
       
-      <img src="/assets/img/mark2.png" className="w-16 absolute top-0 mt-8 ml-24"/>
+      <img alt='' src="/assets/img/mark2.png" className="w-16 absolute top-0 mt-8 ml-24"/>
       {
         token?
            <RegCard className="absolute top-0 w-screen h-screen login-back" cardClassName='w-full h-full rounded-none flex flex-col flex-wrap justify-center items-center'>

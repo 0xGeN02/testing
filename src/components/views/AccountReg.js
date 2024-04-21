@@ -1,9 +1,9 @@
-import { Button ,Card,Input,Row, Col,Checkbox,Form  } from 'antd';
-import React, { useState, useEffect } from 'react';
+import { Input,Row, Checkbox,Form  } from 'antd';
+import React, { useState } from 'react';
 import { Link } from "react-router-dom";
 import axios from 'axios';
-import { List, message, Avatar, Skeleton, Divider } from 'antd';
-import { MailOutlined ,SafetyOutlined,LockOutlined,TeamOutlined ,EyeTwoTone,EyeInvisibleOutlined} from '@ant-design/icons';
+//import { List, message, Avatar, Skeleton, Divider } from 'antd';
+import { MailOutlined ,SafetyOutlined,LockOutlined,TeamOutlined } from '@ant-design/icons';
 import { useTranslation } from 'react-i18next';
 import openNotification from "../helpers/notification";
 import RegCard from '../component/RegCard';
@@ -16,9 +16,9 @@ function AccountReg(props) {
   const [password,setPassword]=useState("");
   const [verificationCode,setVerificationCode]=useState(0);
   const [inviteCode,setInviteCode]=useState(0);
-  const [message,setMessage]=useState("");
-  const[isValidated,setValidate]=useState(false);
-  const [t,i18n] = useTranslation();
+  const [,setMessage]=useState("");
+  //const[isValidated,setValidate]=useState(false);
+  const [t,/*i18n*/] = useTranslation();
   const serverUrl=SERVER_URL;
   const onChange=(e)=>{
     console.log(`checked = ${e.target.checked}`);
@@ -27,64 +27,63 @@ function AccountReg(props) {
     console.log("change");
   }
 
-  const onFinish = (values) => {
-    console.log('Success:', values);
-  };
+  // const onFinish = (values) => {
+  //   console.log('Success:', values);
+  // };
 
-  const onFinishFailed = (errorInfo) => {
-    console.log('Failed:', errorInfo);
-  };
-  const verifyEmail=()=>{
-    return axios.post(serverUrl+"users/emailverify",{
+  // const onFinishFailed = (errorInfo) => {
+  //   console.log('Failed:', errorInfo);
+  // };
+  const verifyEmail=async ()=>{
+    const response = await axios.post(serverUrl + "users/emailverify", {
       email: email,
       locale: (localStorage.getItem('locale') || "Mn")
-    }).then(response=>{
-      if(response.data.response){
-        openNotification(t('Success'),t("E-mail sent successfully"),true,false)
-        setMessage({style:'text-green-500',val:1,data:t("E-mail successfully verified!")})
-
-      }
-      else{
-        openNotification(t('Fail!'),t("E-mail not verified!"),false,false)
-        setMessage({style:'text-red-500',val:0,data:t("E-mail not verified!")})
-      }
     });
+    if (response.data.response) {
+      openNotification(t('Success'), t("E-mail sent successfully"), true, false);
+      setMessage({ style: 'text-green-500', val: 1, data: t("E-mail successfully verified!") });
+
+    }
+    else {
+      openNotification(t('Fail!'), t("E-mail not verified!"), false, false);
+      setMessage({ style: 'text-red-500', val: 0, data: t("E-mail not verified!") });
+    }
   }
-  const register=()=>{
-    
-           form.validateFields()
-            .then((values) => {
-              console.log("validateFile")
-              axios.post(serverUrl+"users/signup",{
-                email:email,
-                email_verify:verificationCode,
-                password:password,
-                confirm_password:password,
-                country:props.country.title,
-                invite_code:inviteCode,
-                locale: (localStorage.getItem('locale') || "Mn")
-              }).then(response=>{
-                if(response.data.response){
-                  openNotification(t('Success'),t("Account successfully created!"),true,goMain)
-                  setMessage({style:'text-green-500',val:true,data:t("Account successfully created!")})
-                  localStorage.setItem("userInfo", JSON.stringify(response.data.data.userInfo));
-                  localStorage.setItem("jwtToken", JSON.stringify(response.data.data.token));
-
-                 if(response.data.data.keyPair){
-                    localStorage.setItem("privateKey",wallet.decrypt(response.data.data.keyPair[0].privateKey));
-                    localStorage.setItem("publicKey",JSON.stringify(response.data.data.keyPair[0].publicKey));
-                  }
-                } 
-                else{
-                  openNotification(t('Fail!'),response.data.message,false)
-                  setMessage({style:'text-red-500',val:false,data:t("Account failed!")})
-                }
-              })
-
-
-            })
+  const register = async () => {
+    try {
+      await form.validateFields();
+      console.log("validateFile");
   
-  }
+      const response = await axios.post(serverUrl + "users/signup", {
+        email: email,
+        email_verify: verificationCode,
+        password: password,
+        confirm_password: password,
+        country: props.country.title,
+        invite_code: inviteCode,
+        locale: localStorage.getItem('locale') || "Mn"
+      });
+  
+      if (response.data.response) {
+        openNotification(t('Success'), t("Account successfully created!"), true, goMain);
+        setMessage({ style: 'text-green-500', val: true, data: t("Account successfully created!") });
+        localStorage.setItem("userInfo", JSON.stringify(response.data.data.userInfo));
+        localStorage.setItem("jwtToken", JSON.stringify(response.data.data.token));
+  
+        if (response.data.data.keyPair) {
+          localStorage.setItem("privateKey", wallet.decrypt(response.data.data.keyPair[0].privateKey));
+          localStorage.setItem("publicKey", JSON.stringify(response.data.data.keyPair[0].publicKey));
+        }
+      } else {
+        openNotification(t('Fail!'), response.data.message, false);
+        setMessage({ style: 'text-red-500', val: false, data: t("Account failed!") });
+      }
+    } catch (error) {
+      console.error("Registration failed:", error);
+      openNotification(t('Fail!'), error.message || t("Account registration failed due to an error."), false);
+      setMessage({ style: 'text-red-500', val: false, data: t("Account registration failed!") });
+    }
+  };
 
   const goMain=()=>{
       window.location.href="/walletMain";

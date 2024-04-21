@@ -1,5 +1,5 @@
-import { useState,useEffect } from 'react';
-import { Button, Row, Col } from 'antd';
+import { useEffect } from 'react';
+import { /*Button,*/ Row, Col } from 'antd';
 import {AiFillCloseCircle} from "react-icons/ai";
 function WalletModal(props) {
 

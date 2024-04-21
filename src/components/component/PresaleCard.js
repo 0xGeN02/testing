@@ -1,12 +1,12 @@
-import { Button, Col } from 'antd';
-import {useRef,useEffect,useState} from "react";
+import { /*Button,*/ Col } from 'antd';
+import {useEffect,useState} from "react";
 import Progress from "./Progress";
-import { Link } from "react-router-dom";
+//import { Link } from "react-router-dom";
 import {BsDot} from "react-icons/bs";
 import {RiLockPasswordLine} from "react-icons/ri"
 function PresaleCard(props) {
-  const ref=useRef();
-  const [ran,setRan]=useState(2);
+  //const ref=useRef();
+  const [/*ran,*/setRan]=useState(2);
   const [remainTime, setRemainTime] = useState([0, 0, 0, 0]);
   const [remainTimeInSecond, setRemainTimeInSecond] = useState(0);
   let currentLocalTime = new Date();
@@ -24,7 +24,7 @@ function PresaleCard(props) {
     let remainTime = Math.floor((launchTime.getTime()-timeoffset-currentTime.getTime())/(1000));
     setRemainTimeInSecond(remainTime);
     setRemainTime(formatTime(remainTime));
-  }, [])
+  }, [setRan,setRemainTime,setRemainTimeInSecond,timeoffset])
   
   useEffect(() => {
     let timerID = setInterval( () => {
@@ -52,7 +52,7 @@ function PresaleCard(props) {
       
     
       <div className="flex justify-between flex-wrap items-center ">
-        <img src={props.logo} className="w-12"/>
+        <img alt="" src={props.logo} className="w-12"/>
         <div>
         {
           props.state===0?

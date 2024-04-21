@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Navigate } from "react-router-dom";
 import { Layout, Menu } from 'antd';
-import { UploadOutlined, UserOutlined, VideoCameraOutlined, SwapOutlined, BarChartOutlined } from '@ant-design/icons';
+import { UploadOutlined, UserOutlined, /*VideoCameraOutlined,*/ SwapOutlined, BarChartOutlined } from '@ant-design/icons';
 import UserTableView from "./UserTableView";
 import P2PTableView from "./P2PTableView";
 import {RiArrowLeftRightFill} from "react-icons/ri";
@@ -11,7 +11,7 @@ import ProgressBar from "./ProgressBar";
 
 import './Admin.css'
 
-const { Header, Content, Footer, Sider } = Layout;
+const { Header, /*Content,*/ Footer, Sider } = Layout;
 
 function AdminPanel() {
     const [currentIndex, setCurrentIndex] = useState(1)

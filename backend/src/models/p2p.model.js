@@ -2,8 +2,8 @@
 
 const query = require('../db/db-connection');
 const { multipleColumnSet } = require('../utils/common.utils');
-const Role = require('../utils/userRoles.utils');
-const HttpException = require('../utils/HttpException.utils');
+// const Role = require('../utils/userRoles.utils');
+// const HttpException = require('../utils/HttpException.utils');
 
 class P2PModel {
     tableName = 'p2p';
@@ -82,4 +82,4 @@ class P2PModel {
     }
 }
 
-module.exports = new P2PModel;
+module.exports = new P2PModel();

@@ -2,7 +2,7 @@
 
 const query = require('../db/db-connection');
 const { multipleColumnSet } = require('../utils/common.utils');
-const Role = require('../utils/userRoles.utils');
+//const Role = require('../utils/userRoles.utils');
 
 class WalletModel {
     tableName = 'wallet';
@@ -97,4 +97,4 @@ class WalletModel {
     }
 }
 
-module.exports = new WalletModel;
+module.exports = new WalletModel();

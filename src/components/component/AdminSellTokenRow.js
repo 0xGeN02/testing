@@ -1,5 +1,5 @@
 import React from 'react';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useCallback } from 'react';
 import { Col, Input, Select} from 'antd';
 import axios from "axios";
 import { SERVER_URL } from "../../constants/env";
@@ -11,25 +11,30 @@ const { Option } = Select;
 
 function AdminSendTokenRow(props) {
 
-    const [email, setEmail] = useState("");
+    const [email] = useState("");
     const [address, setAddress] = useState("");
     const [amount, setAmount] = useState(0);
     const [price, setPrice] = useState(0);
     const [selected, setSelected] = useState(false);
     const [tokenAddress, setTokenAddress] = useState(0);
-    const [publicKey,setPublicKey] = useState(localStorage.getItem("publicKey"));
+    const [publicKey] = useState(localStorage.getItem("publicKey"));
     const [status, setStatus] = useState();
 
     const serverUrl = SERVER_URL;
 
+    const getTokenPrice = useCallback(async () => {
+        let price = await getTokenPriceInUsd(props.network, props.transaction.token);
+        setPrice(price)
+    }, [props.network, props.transaction.token]);
+    
     useEffect(() => {
         setTokenAddress("0xcbAe2a4625c5CB99391D8F1a0F5121B3E5A176bb")
         getTokenPrice();
-    }, [])
+    }, [getTokenPrice])
 
     useEffect(() => {
         setAmount(props.transaction.amount * price / (0.008 * 1e18))
-    }, [price])
+    }, [price, props.transaction.amount])
 
     useEffect(() => {
         setAddress(props.transaction.from_id);
@@ -54,7 +59,7 @@ function AdminSendTokenRow(props) {
                 setAddress("");
             })
         }
-    },[email])
+    },[email, serverUrl])
 
     useEffect(() => {
         (async() => {
@@ -93,12 +98,7 @@ function AdminSendTokenRow(props) {
                 }
             } else setStatus("")
         })()
-    }, [props.canDo])
-
-    const getTokenPrice = async () => {
-        let price = await getTokenPriceInUsd(props.network, props.transaction.token);
-        setPrice(price)
-    }
+    }, [props.canDo, selected, address, amount, tokenAddress, publicKey, props.network.url, serverUrl])
 
     return (
         <React.Fragment>

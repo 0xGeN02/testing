@@ -4,7 +4,7 @@ import { Col, Input, Select} from 'antd';
 import axios from "axios";
 import { SERVER_URL } from "../../constants/env";
 import setAuthToken from "../../utils/setAuthToken";
-import {getTokenBaseInfo,getTokenType,getEstimatedGasLimit} from "../../utils/tokenUtils";
+import {/*getTokenBaseInfo,getTokenType,*/getEstimatedGasLimit} from "../../utils/tokenUtils";
 
 const { Option } = Select;
 
@@ -16,7 +16,7 @@ function AdminSendTokenRow(props) {
     const [amount, setAmount] = useState(0);
     const [token, setToken] = useState(0);
     const [tokenAddress, setTokenAddress] = useState(0);
-    const [publicKey,setPublicKey] = useState(localStorage.getItem("publicKey"));
+    const [publicKey] = useState(localStorage.getItem("publicKey"));
     const [status, setStatus] = useState()
 
     const serverUrl = SERVER_URL;
@@ -42,11 +42,11 @@ function AdminSendTokenRow(props) {
                 setAddress("");
             })
         }
-    },[email])
+    },[email, serverUrl])
 
     useEffect(() => {
         setTokenAddress(props.tokens[token])
-    }, [token])
+    }, [token, props.tokens])
 
     useEffect(() => {
         (async() => {
@@ -78,7 +78,7 @@ function AdminSendTokenRow(props) {
                 })
             } else setStatus("")
         })()
-    }, [props.canDo])
+    }, [props.canDo, address, amount, tokenAddress, publicKey, props.network.url, serverUrl])
 
     return (
         <React.Fragment>

@@ -1,11 +1,11 @@
-import {useEffect,useState,useRef} from "react";
+import {useState} from "react";
 import { useTranslation } from 'react-i18next';
 import { Spin } from "antd";
 import DetailItem from './DetailItem';
 import noDataImage from '../../../assets/image/nodata.svg';
 
 function BuySellTable(props) {
-    const [t,i18n] = useTranslation();
+    const [t,/*i18n*/] = useTranslation();
     const { orderList, isLoading, noData, showCurrency } = props;
     const [showDetailIndex, setShowDetailIndex] = useState(-1);
 

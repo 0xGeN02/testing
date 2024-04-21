@@ -1,17 +1,18 @@
-import { Layout, Table, Row, Col, Space, Button, Select, Modal, Input, Form, Tabs } from 'antd';
-import { DownOutlined, MailOutlined, LockOutlined} from '@ant-design/icons';
-import { useEffect, useState } from 'react';
-import {BsPlusLg} from "react-icons/bs";
+import { Layout, /*Table,*/ Row, Col, /*Space, Button, Select, Modal, Input, Form, Tabs */} from 'antd';
+// import { DownOutlined, MailOutlined, LockOutlined} from '@ant-design/icons';
+import { useEffect, useState, useCallback } from 'react';
+// import {BsPlusLg} from "react-icons/bs";
 import axios from "axios";
 import { useTranslation } from 'react-i18next';
 import setAuthToken from "../../../utils/setAuthToken";
-import WalletUtil from "../../../utils/wallet";
+//import WalletUtil from "../../../utils/wallet";
 import { SERVER_URL } from "../../../constants/env";
 import openNotification from "../../helpers/notification";
 import AdminSellTokenRow from "../../component/AdminSellTokenRow";
 import {getTokenPriceInUsd} from "../../../utils/tokenUtils";
+//import { get } from 'request';
 const { Content } = Layout;
-const { Option } = Select;
+//const { Option } = Select;
 
 const networks=[
     {
@@ -39,24 +40,46 @@ const networks=[
 
 function SellToken() {
     const [index,setIndex] = useState(0)
-    const [network, setNetwork] = useState(networks[2]);
+    const [network] = useState(networks[2]);
     const [transaction, setTransaction] = useState([]);
     const [price, setPrice] = useState(0);
-    const [loading,setLoading] = useState(false);
-    const [connection,setConnection] = useState(true);
-    const [publicKey,setPublicKey]=useState(localStorage.getItem("publicKey"));
+    // const [loading,setLoading] = useState(false);
+    // const [connection,setConnection] = useState(true);
+    const [publicKey]=useState(localStorage.getItem("publicKey"));
     const [canDo, setCanDo] = useState(false);
     const [buttonName, setButtonName] = useState("Send Token");
-    const wallet = new WalletUtil();
+    //const wallet = new WalletUtil();
     const serverUrl =SERVER_URL;
-    const [t,i18n] = useTranslation();
+    const [t,/*i18n*/] = useTranslation();
     
+    const getAdminTransaction = useCallback(async () => {
+        setAuthToken(localStorage.jwtToken)
+        axios.post(`${serverUrl}wallets/getadmintransaction`, {
+            network:network.url
+        })
+        .then((response)=>{
+            if (response.data.response) {
+                setTransaction(response.data.data)
+            }
+        })
+        .catch(err=>{
+            console.log(err);
+        })
+    }, [network.url, serverUrl])
+
+    const getMGLPrice = useCallback( async () => {
+        getTokenPriceInUsd(network, "0xcbAe2a4625c5CB99391D8F1a0F5121B3E5A176bb")
+        .then((response) => {
+            setPrice(response)
+        });
+    }, [network])
+
     useEffect(()=>{
         if(!publicKey)
             openNotification("Wallet Access failed.","You are not allowed!",false,()=>window.location.href="/walletMain")
         getAdminTransaction();
         getMGLPrice();
-    },[]);
+    },[getAdminTransaction,getMGLPrice,publicKey]);
 
     useEffect(() => {
         setIndex(transaction.length)
@@ -70,28 +93,6 @@ function SellToken() {
         if (canDo) setButtonName("Stop Sending")
         else setButtonName("Send Token")
     }, [canDo])
-    
-    const getAdminTransaction = async () => {
-        setAuthToken(localStorage.jwtToken)
-        axios.post(`${serverUrl}wallets/getadmintransaction`, {
-            network:network.url
-        })
-        .then((response)=>{
-            if (response.data.response) {
-                setTransaction(response.data.data)
-            }
-        })
-        .catch(err=>{
-            console.log(err);
-        })
-    }
-
-    const getMGLPrice = async () => {
-        getTokenPriceInUsd(network, "0xcbAe2a4625c5CB99391D8F1a0F5121B3E5A176bb")
-        .then((response) => {
-            setPrice(response)
-        });
-    }
 
     const SendAllTokens = async () => {
         setCanDo(!canDo)

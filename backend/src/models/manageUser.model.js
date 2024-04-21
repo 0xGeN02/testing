@@ -2,8 +2,8 @@
 
 const query = require('../db/db-connection');
 const { multipleColumnSet } = require('../utils/common.utils');
-const Role = require('../utils/userRoles.utils');
-const HttpException = require('../utils/HttpException.utils');
+// const Role = require('../utils/userRoles.utils');
+// const HttpException = require('../utils/HttpException.utils');
 class ManageUserModel {
     tableName = 'manage_user';
 
@@ -76,4 +76,4 @@ class ManageUserModel {
     }
 }
 
-module.exports = new ManageUserModel;
+module.exports = new ManageUserModel();

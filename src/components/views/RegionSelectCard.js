@@ -1,19 +1,19 @@
-import { Button ,Card,Input,Row, Col} from 'antd';
-import React, { useState, useEffect } from 'react';
-import { List, message, Avatar, Skeleton, Divider } from 'antd';
+import {Input,Row, Col} from 'antd';
+import React, { useState, useEffect, useCallback } from 'react';
+import { List } from 'antd';
 import { SearchOutlined ,CloseOutlined} from '@ant-design/icons';
-import { motion } from "framer-motion"
+//import { motion } from "framer-motion"
 import countrylist from "country-list";
-import countrydata from 'country-data';
+//import countrydata from 'country-data';
 import ReactCountryFlag from "react-country-flag"
 import { useTranslation } from 'react-i18next'
 import RegCard from '../component/RegCard';
 function RegionSelectCard(props) {
-  const [t,i18n] = useTranslation();
+  const [t,] = useTranslation();
 
   const [data, setData] = useState([]);
   const [search,setSearch]=useState("");
-  const loadMoreData = () => {
+  const loadMoreData = useCallback(() => {
     countrylist.overwrite([{
     code: 'TW',
     name: 'Taiwan'
@@ -35,10 +35,11 @@ function RegionSelectCard(props) {
     // }
     console.log(rawData);
     setData(rawData);
-  };
+  },[search]);
+
   useEffect(() => {
     loadMoreData();
-  }, [search]);
+  }, [search, loadMoreData]);
   const getRegion=(code)=>{
       props.setRegion({code:code,title:countrylist.getName(code)});
       props.stepDecrement();

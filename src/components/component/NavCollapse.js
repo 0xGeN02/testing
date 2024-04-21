@@ -1,9 +1,9 @@
-import { Button,Row,Col,Collapse  } from 'antd';
-import { motion,useViewportScroll } from "framer-motion"
+import { /*Button,Row,Col,*/Collapse  } from 'antd';
+import { motion/*,useViewportScroll*/ } from "framer-motion"
 import { Link } from "react-router-dom";
 import {useState} from "react"
 import {AiFillCloseCircle,AiOutlineArrowUp,AiOutlineArrowDown} from "react-icons/ai"
-import {BsCreditCard2Front,BsCash,BsPeople} from "react-icons/bs"
+import {BsCreditCard2Front/*,BsCash*/,BsPeople} from "react-icons/bs"
 import LangSelect from './LangSelect';
 import { useTranslation } from 'react-i18next'
 const { Panel } = Collapse;
@@ -19,9 +19,9 @@ const CollapseData=[
 	  ]
 
 function NavCollapse (props){
-	const [drop,setDrop]=useState(false);
+	//const [drop,setDrop]=useState(false);
 	const [CollapseIdx,setCollapse]=useState(-1);
-  const [t,i18n] = useTranslation();
+  const [t/*,i18n*/] = useTranslation();
   
   const logout = ()=>{
     localStorage.removeItem("userInfo");
@@ -67,7 +67,7 @@ function NavCollapse (props){
                       header={t(item.title)} 
                       key={idx}
                       showArrow={false}
-                      extra={CollapseIdx==idx?<AiOutlineArrowUp size={20}/>
+                      extra={CollapseIdx===idx?<AiOutlineArrowUp size={20}/>
                           :<AiOutlineArrowDown size={20}/>}>
                       <div className="" >
                         {

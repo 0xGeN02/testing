@@ -1,12 +1,13 @@
-import React, { useState, useEffect, useCallback, useContext } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import axios from 'axios';
-import { useTranslation } from 'react-i18next'
+//import { useTranslation } from 'react-i18next'
 import setAuthToken from "../../utils/setAuthToken"
 import {SERVER_URL, networks} from "../../constants/env";
-import openNotification from "../helpers/notification";
-import {UserContext} from "./UserProvider";
+//import openNotification from "../helpers/notification";
+//import {UserContext} from "./UserProvider";
 import {getTokenBaseInfo, getTokenBalance, getTokenPriceInUsd} from "../../utils/tokenUtils";
 import HighWallet from "../../utils/HighWallet";
+//import { get } from 'request';
 
 const WalletContextTemplate = {
   connection : Boolean,
@@ -28,8 +29,8 @@ const WalletProviderDOM = WalletContext.Provider;
 
 
 function WalletProvider(props) {
-  const userData = useContext(UserContext);
-  const {t,i18n} = useTranslation();
+  //const userData = useContext(UserContext);
+  //const {t,i18n} = useTranslation();
   const [connection, setConnection] = useState(true);
   const [myWallet, setWallet] = useState({});
   const [loading, setLoading] = useState(false);
@@ -37,12 +38,12 @@ function WalletProvider(props) {
   const [totalPrice, setTotalPrice] = useState(0);
   const [network, setNetwork] = useState(networks[2]);
   const [tokensInfo, setTokensInfo] = useState([]);
-  const [transactions, setTransactions] = useState([]);
+  const [, setTransactions] = useState([]);
 
   useEffect(()=>{
     console.log("tokenlist",tokenList);
   },[tokenList])
-  const getTokenList = ()=>{
+  const getTokenList = useCallback(()=>{
       setConnection(true);
       setLoading(true);
       setAuthToken(localStorage.jwtToken)
@@ -58,8 +59,9 @@ function WalletProvider(props) {
         .catch(err=>{
           setConnection(false);
         })  
-  }
-  const getTokenInfo = async()=>{
+  },[myWallet.publicKey, network, setTokenList, setConnection, setLoading])
+
+  const getTokenInfo = useCallback(async()=>{
       setConnection(true);
       try {
         
@@ -83,8 +85,9 @@ function WalletProvider(props) {
       }
 
       setLoading(false);
-  }
-  const getTransaction = ()=>{ 
+  }, [tokenList, network, setTokensInfo, setTotalPrice, setConnection, setLoading, myWallet.publicKey]);
+
+  const getTransaction = useCallback(()=>{ 
       setConnection(true);
       setAuthToken(localStorage.jwtToken)
       axios.post(SERVER_URL + "wallets/gettransaction", {
@@ -101,7 +104,10 @@ function WalletProvider(props) {
             
             setConnection(false);
           })
-    }
+    }, [myWallet.publicKey, network, setTransactions, setConnection])
+
+    let publicKey = localStorage.getItem("publicKey");
+    let privateKey = localStorage.getItem("privateKey");
 
     useEffect(()=>{
       let publicKey = localStorage.getItem("publicKey");
@@ -111,33 +117,35 @@ function WalletProvider(props) {
         let newWallet = new HighWallet("bsc-mainnet",privateKey,publicKey);
         setWallet(newWallet);
       }
-    },[localStorage.getItem("publicKey"),localStorage.getItem("privateKey")])
+    },[publicKey,privateKey])
 
     useEffect(()=>{
       if(myWallet)
         myWallet.setNetwork(network.url);
         getTokenList();
         getTransaction();
-    },[network])
+    },[network, myWallet, connection, setConnection, setWallet, setTokenList, setTotalPrice, setTokensInfo, setLoading, setTransactions, setNetwork, getTransaction, getTokenList, getTokenInfo])
 
     useEffect(()=>{
       if(tokenList.length>0)
         getTokenInfo();
-    },[tokenList])
+    },[tokenList, network, getTokenInfo, setTokensInfo, setTotalPrice, setConnection, setLoading, setTotalPrice, setTokensInfo, setLoading, setConnection, setNetwork, getTransaction, getTokenList, getTransaction])
   return(
           <WalletProviderDOM value={
-            connection,
-            setConnection,
-            myWallet,
-            loading,
-            setLoading,
-            tokenList,
-            totalPrice,
-            network,
-            setNetwork,
-            tokensInfo,
-            getTokenList,
-            getTransaction
+            {
+              connection,
+              setConnection,
+              myWallet,
+              loading,
+              setLoading,
+              tokenList,
+              totalPrice,
+              network,
+              setNetwork,
+              tokensInfo,
+              getTokenList,
+              getTransaction
+            }
           }>
             {props.children}
           </WalletProviderDOM>

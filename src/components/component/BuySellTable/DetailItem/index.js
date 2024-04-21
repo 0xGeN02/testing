@@ -1,9 +1,9 @@
 import { useTranslation } from 'react-i18next';
 import SelectComponent from '../../Select';
-import InputElement from '../InputComponent';
+//import InputElement from '../InputComponent';
 
 function DetailIitem (props) {
-    const [t,i18n] = useTranslation();
+    const [t,/*i18n*/] = useTranslation();
     const { item, showCurrency } = props;
     const contactList = [
         {value: "facebook", name: "Facebook", url: item.facebook_link},
@@ -14,7 +14,7 @@ function DetailIitem (props) {
             <div className="w-full lg:w-7/12 flex flex-col mr-0 lg:mr-8">
                 <div className="w-full flex justify-between flex-col lg:flex-row">
                     <div className="flex items-center">
-                        <div className="font-bold flex cursor-pointer text-2xl items-center"><img className="h-14 w-14 rounded-full" src={item.profile_pic} />&nbsp;{item.seller_name}</div>
+                        <div className="font-bold flex cursor-pointer text-2xl items-center"><img alt='' className="h-14 w-14 rounded-full" src={item.profile_pic} />&nbsp;{item.seller_name}</div>
                         <div className="my-1 bg-green-200 rounded-lg font-bold flex items-center justify-center py-1 px-4 ml-4 text-xs">{t("MGL Verified")}</div>
                     </div>
                     <div className="w-8/12 lg:w-3/12 my-1"><SelectComponent optionList={contactList} groupName="Ways to connect" defaultValue="Contact Agent" link /></div>

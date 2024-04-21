@@ -1,10 +1,8 @@
 const P2PModel = require("../models/p2p.model");
-const { validationResult } = require('express-validator');
+//const { validationResult } = require('express-validator');
 const fs = require('fs');
 class P2PService {
-    constructor() {
-
-    }
+    //constructor() {}
 
     static async createP2P(rawData) {
         try {

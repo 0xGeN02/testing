@@ -6,16 +6,14 @@ const TopTokenModel = require('../models/topToken.model');
 const Role = require('../utils/userRoles.utils');
 const Wallet = require('../utils/wallet.utils');
 const bcrypt = require('bcryptjs');
-const mainTokenList = require('../utils/polygon.json');
-const testTokenList = require('../utils/polygon_testnet.json');
+// const mainTokenList = require('../utils/polygon.json');
+// const testTokenList = require('../utils/polygon_testnet.json');
 const {BNB_ADDRESS, COIN_AMOUNT, ADMIN_GAS_LIMIT, ADMIN_GAS_PRICE} = require('../utils/constants');
 const emailService = require('./emailer.service');
 const i18n = require('i18n');
 
 class WalletService {
-    constructor() {
-
-    }
+    //constructor() {}
 
     static async createWallet(userId, keyphrase, locale) {
         let user = await UserModel.findOne({id:userId});

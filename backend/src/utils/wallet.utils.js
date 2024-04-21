@@ -7,8 +7,9 @@ const crypto = require('crypto');
 const algorithm = "aes-256-cbc";
 const initSeed = "MGLWalletInitKey";
 const secSeed = "MGLWalletSecurityWithSecurityKey";
-const mainTokenList = require('./polygon.json')
-const testTokenList = require('./polygon_testnet.json')
+// const mainTokenList = require('./polygon.json')
+// const testTokenList = require('./polygon_testnet.json')
+const {getTokenBaseInfo} = require('') //Import function from file
 const dotenv = require('dotenv');
 dotenv.config();
 var minABI = [
@@ -153,7 +154,7 @@ class Wallet {
     }
 
     async getBalance(publicKey, symbols, assets) {
-        let symbol = symbols.split(',');
+        //let symbol = symbols.split(',');
         let asset = assets.split(',');
         let result = {};
         for (let i=0; i < asset.length; i ++) {

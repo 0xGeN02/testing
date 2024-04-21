@@ -1,11 +1,11 @@
 import { useState,useEffect } from 'react';
-import { Button, Row, Col } from 'antd';
-import {AiFillCloseCircle} from "react-icons/ai";
-import axios from 'axios';
+import { Button, Row } from 'antd';
+// import {AiFillCloseCircle} from "react-icons/ai";
+// import axios from 'axios';
 import { useTranslation } from 'react-i18next';
 import WalletModal from "../component/WalletModal";
 function WalletVerifyModal(props) {
-    const [t,i18n] = useTranslation();
+    const [t,] = useTranslation();
     const [showWarn,setShowWarn]=useState(false);
 
     useEffect(()=>{

@@ -1,9 +1,9 @@
 import { useState,useEffect } from 'react';
 import { Button, Row, Col } from 'antd';
 import { Link } from "react-router-dom";
-import Icon from "react-crypto-icons";
-import { motion, useViewportScroll } from "framer-motion"
-import {AiFillCloseCircle} from "react-icons/ai";
+// import Icon from "react-crypto-icons";
+// import { motion, useViewportScroll } from "framer-motion"
+// import {AiFillCloseCircle} from "react-icons/ai";
 import axios from 'axios';
 import { useTranslation } from 'react-i18next';
 import openNotification from "../../helpers/notification";
@@ -14,8 +14,9 @@ import setAuthToken from "../../../utils/setAuthToken"
 import WalletVerifyModal from "../../views/WalletVerifyModal";
 import {SERVER_URL} from "../../../constants/env";
 import './WalletLanding.css'
+//import { m } from 'framer-motion';
 function Launch() {
-    const [t,i18n] = useTranslation();
+    const [t,/*i18n*/] = useTranslation();
 
     const [accessMode, setAccessMode] = useState(false)
     const [createMode, setCreateMode] = useState(false)
@@ -34,7 +35,7 @@ function Launch() {
         let initTypedMnemonic=[...mnemonic.split(" ")];
         missPhrase.map((item,idx)=>initTypedMnemonic[item]="");
         setTypedMnemonic(initTypedMnemonic);
-    },[mnemonic])
+    },[mnemonic, missPhrase])
     
     useEffect(()=>{
         if(!localStorage.getItem("userInfo")){
@@ -89,7 +90,7 @@ function Launch() {
 
     async function completeCreation() {
         setAuthToken(localStorage.jwtToken)
-        const response = await axios.post(serverUrl + "wallets/create", {
+        await axios.post(serverUrl + "wallets/create", {
             keyphrase: wallet.encrypt(mnemonic),
             locale: localStorage.getItem('locale') || "Mn"
         }).then((response)=>{
@@ -111,7 +112,7 @@ function Launch() {
     return (
         <>
         <div className="relative">
-            <img src="/assets/img/background_main.png" />
+            <img alt="" src="/assets/img/background_main.png" />
             <div className="absolute top-0 w-full h-full flex flex-col ">
                 <Nav className="w-11/12 xl:w-5/6 m-auto " />
                 {(!accessMode && !createMode) ? <div className="w-5/6 lg:w-4/5 m-auto my-12 flex-grow">
@@ -126,7 +127,7 @@ function Launch() {
                                 <Col className="div-relative">
                                     <Row className="wallet-detail">
                                         <Col span={24}>
-                                            <img src="./assets/img/mark2.png"  style={{width: 135, height: 135}} />
+                                            <img alt='' src="./assets/img/mark2.png"  style={{width: 135, height: 135}} />
                                         </Col>
                                     </Row>
                                     <Row className="text-grey wallet-detail ">
@@ -151,7 +152,7 @@ function Launch() {
                                 <Col className="div-relative">
                                     <Row className="wallet-detail">
                                         <Col span={24}>
-                                            <img src="./assets/img/mark2.png"  style={{width: 135, height: 135}} />
+                                            <img alt='' src="./assets/img/mark2.png"  style={{width: 135, height: 135}} />
                                         </Col>
                                     </Row>
                                     <Row className="text-grey wallet-detail ">
@@ -228,7 +229,7 @@ function Launch() {
                             <Row>
                                 <Col span={24} className="text-center">
                                     <div className="image-warp">
-                                        <img src="./assets/img/mark2.png"  style={{width: 95, height: 95}} className="centered-image"/>  
+                                        <img alt='' src="./assets/img/mark2.png"  style={{width: 95, height: 95}} className="centered-image"/>  
                                     </div>
                                 </Col>
                                 <Col span={24} className="text-center semi-header">
@@ -281,7 +282,7 @@ function Launch() {
                                 <Col className="div-relative">
                                     <Row className="wallet-detail">
                                         <Col span={24}>
-                                            <img src="./assets/img/mark2.png"  style={{width: 135, height: 135}} />
+                                            <img alt='' src="./assets/img/mark2.png"  style={{width: 135, height: 135}} />
                                         </Col>
                                     </Row>
                                     <Row className="wallet-detail header">

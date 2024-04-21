@@ -1,12 +1,12 @@
 import { Row,Col } from 'antd';
 import {useState} from 'react';
-import {AiOutlineQrcode,AiTwotoneContainer,AiOutlineKey,AiOutlineUser} from 'react-icons/ai';
+import {/*AiOutlineQrcode,AiTwotoneContainer,*/AiOutlineKey,/*AiOutlineUser*/} from 'react-icons/ai';
 import WalletResetPasswordModal from "../component/WalletResetPasswordModal";
 import { useTranslation } from 'react-i18next';
     
 function WalletProfile() {
-  const [t,i18n] = useTranslation();
-  const [use,setUser] = useState(JSON.parse(localStorage.getItem("userInfo")));
+  const [t,/*i18n*/] = useTranslation();
+  const [use,/*setUser*/] = useState(JSON.parse(localStorage.getItem("userInfo")));
   const [showModal,setShowModal] = useState(false);
   return (
     <Col span={22} offset={1} className="mt-8 myColor1 text-sm">

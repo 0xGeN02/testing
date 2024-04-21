@@ -10,7 +10,7 @@ function UserInfo() {
 
     return (
         <div className="relative mb-0 bg-gray-100 h-full flex flex-col">
-            <img src="/assets/img/background2.png" className="w-screen absolute top-0 back"/>
+            <img alt="" src="/assets/img/background2.png" className="w-screen absolute top-0 back"/>
             {/*<img src="./assets/img/earth2.png" className="absolute w-2/3 bottom-0 right-0" />*/}
             <div className="w-full bg-white">
                 <Nav className="w-11/12 xl:w-5/6 m-auto" setSubmenu={setSubmenu}/>
@@ -19,7 +19,7 @@ function UserInfo() {
                 <div className="my-6 lg:my-12 lg:px-8 w-full flex justify-between flex-col lg:flex-row">
                     <div className="w-full lg:w-4/12 flex justify-between lg:justify-start">
                         <div className="flex">
-                            <img className="w-5 h-5 lg:w-10 lg:h-10 rounded-full" src={avatarImage} />
+                            <img alt="" className="w-5 h-5 lg:w-10 lg:h-10 rounded-full" src={avatarImage} />
                             <span className="font-bold lg:hidden">Nabiluux</span>
                         </div>
                         <div className="lg:flex lg:flex-col">

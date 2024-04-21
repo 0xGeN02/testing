@@ -1,10 +1,10 @@
-import { Menu, Dropdown,Button,Row,Col ,Badge} from 'antd';
-import React, { useState, useEffect } from 'react';
+import { /*Menu,*/ Dropdown,/*Button,Row,Col,*/Badge} from 'antd';
+import React, { useState } from 'react';
 import { Link, Navigate } from "react-router-dom";
 import {IoApps,IoNotificationsOutline} from "react-icons/io5";
 import {BiUserCircle} from "react-icons/bi";
 import {GiHamburgerMenu} from "react-icons/gi";
-import {BsCurrencyExchange,BsCreditCard2Front,BsCash,BsPeople} from "react-icons/bs";
+import {BsCurrencyExchange,BsCreditCard2Front,/*BsCash,*/BsPeople} from "react-icons/bs";
 import { AiFillCaretDown,AiOutlineSwap } from "react-icons/ai";
 import {GrLaunch} from "react-icons/gr"
 import {MdHomeRepairService} from "react-icons/md";
@@ -16,7 +16,7 @@ import openNotification from "../helpers/notification";
 import NavCollapse from "./NavCollapse";
 
 function Nav(props) {
-  const [t,i18n] = useTranslation();
+  const [t,/*i18n*/] = useTranslation();
   const [userData,setUserData] = useState(localStorage.getItem("userInfo"));
   const [regPage, SetRegPage] = useState(false);
   const [submenu,setSubmenu] = useState(false);
@@ -111,7 +111,7 @@ function Nav(props) {
     {!regPage ? 
       <div className={`flex  h-20  text-black ${ props.className} mt-3 text-xs xl:text-sm` }>
       <div className="flex items-center   flex-grow ">
-        <Link to="/" className="h-4/5"><img src="/assets/img/mark2.png"className="h-full" /></Link>
+        <Link to="/" className="h-4/5"><img alt="" src="/assets/img/mark2.png"className="h-full" /></Link>
         <Dropdown overlay={menu} placement="bottomLeft" >
           <a className="hidden md:flex flex m-4 text-gray-700"><IoApps size={30}/><AiFillCaretDown className="text-gray-400" size={30}/></a>
         </Dropdown>
@@ -128,7 +128,7 @@ function Nav(props) {
       <div className="hidden md:block py-5">
         <div className="flex  items-center rightBorder h-4 h-10 ">
         {
-          (userData==undefined||userData=='')?
+          (userData===undefined||userData==='')?
           <>
             <Link to="/login"><button className="mx-4 xl:mx-8">{t('Log In')}</button></Link>
             <button className="mr-4 xl:mr-8 myButton text-white myBule px-3 xl:px-6 " onClick={goToRegister}>{t('Register')} </button>

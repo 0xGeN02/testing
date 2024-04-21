@@ -1,4 +1,4 @@
-import { Layout, Table, Row, Col, Button, Select, Modal, notification, Form, Input, Upload, message } from 'antd';
+import { Layout, /*Table,*/ Row, Col, /*Button, Select, Modal, notification, Form, Input, Upload, message*/ } from 'antd';
 import { useEffect, useState, useCallback } from 'react';
 import axios from "axios";
 import { useTranslation } from 'react-i18next';
@@ -7,13 +7,13 @@ import { SERVER_URL } from "../../../constants/env";
 import openNotification from "../../helpers/notification";
 
 const { Content } = Layout;
-const { Column } = Table;
+// const { Column } = Table;
 
 const ieoID=1;
 function P2PTableView() {
 
     const [IEOData, setIEOData] = useState({});
-    const [t,i18n] = useTranslation();
+    const [t,/*i18n*/] = useTranslation();
     const checkNumber = value => {
         const reg = /^-?\d*(\.\d*)?$/;
         if ((!isNaN(value) && reg.test(value)) || value === '' || value === '-') {

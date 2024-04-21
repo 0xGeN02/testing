@@ -5,7 +5,7 @@ import DetailItem from '../BuySellTable/DetailItem';
 import noDataImage from '../../../assets/image/nodata.svg';
 
 function BuySellList(props) {
-    const [t,i18n] = useTranslation();
+    const [t,/*i18n*/] = useTranslation();
     const { isLoading, orderList, noData, showCurrency } = props;
     const [showDetailIndex, setShowDetailIndex] = useState(-1);
 
@@ -14,14 +14,14 @@ function BuySellList(props) {
             <Spin spinning={isLoading}>
                 {
                     noData
-                        ? <div className="w-full flex justify-center"><div className="text-sm flex flex-col items-center"><img src={noDataImage} />No Ads</div></div>
+                        ? <div className="w-full flex justify-center"><div className="text-sm flex flex-col items-center"><img alt="" src={noDataImage} />No Ads</div></div>
                         : orderList && orderList.map((order, index) => 
                             showDetailIndex === index 
                                 ? <DetailItem item={order} showCurrency={showCurrency} />
                                 : <div key={index} className="rounded-lg bg-gray-200 p-4 my-2">
                                     <div className="flex justify-between">
                                         <a href="/userinfo" className="font-bold flex items-center cursor-pointer">
-                                            <img className="h-5 w-5 rounded-full mr-2" src={order.profile_pic} />
+                                            <img className="h-5 w-5 rounded-full mr-2" src={order.profile_pic} alt=""/>
                                             {order.seller_name}
                                         </a>
                                         {/* <div className="text-sm">{order.completed_orders}</div> */}

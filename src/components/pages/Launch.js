@@ -1,23 +1,26 @@
-import { Button,Row,Col } from 'antd';
+import { Row,Col } from 'antd';
 import {useEffect, useState} from 'react';
-import { Link } from "react-router-dom";
-import Icon from "react-crypto-icons";
-import { motion,useViewportScroll } from "framer-motion"
+// import { Link } from "react-router-dom";
+// import Icon from "react-crypto-icons";
+// import { motion,useViewportScroll } from "framer-motion"
 
 import Nav from "../component/Nav"
 import Footer from "../component/Footer";
 import PresaleCard from "../component/PresaleCard";
-import {getTokenBaseInfo, getTokenBalance, getTokenPriceInUsd} from "../../utils/tokenUtils";
-import {SERVER_URL, networks} from "../../constants/env";
+import {/*getTokenBaseInfo, getTokenBalance,*/ getTokenPriceInUsd} from "../../utils/tokenUtils";
+import {/*SERVER_URL,*/ networks} from "../../constants/env";
 
 function Launch() {
 
 const [presaleData, setPresaleData] = useState([])
 
-useEffect(async()=>{
-  let result = await getPresaleData();
-  setPresaleData(result);
-},[])
+useEffect(() => {
+  async function fetchData() {
+      let result = await getPresaleData();
+      setPresaleData(result);
+  }
+  fetchData();
+}, []);
 const getPresaleData = async()=>{
 
   let bnbprice = await getTokenPriceInUsd(networks[2], '0x0000000000000000000000000000000000001010');
@@ -38,7 +41,7 @@ const getPresaleData = async()=>{
   return (
 
     <div className="relative">
-      <img src="/assets/img/background_main.png"/>
+      <img alt='' src="/assets/img/background_main.png"/>
       <div className="absolute top-0 w-full h-full flex flex-col ">
         <Nav className="w-11/12 xl:w-5/6 m-auto "/> 
         <div className="w-5/6 lg:w-4/5 m-auto my-12 flex-grow">
@@ -52,7 +55,7 @@ const getPresaleData = async()=>{
             </Col>
 
             <Col span={8} className="text-right">
-              <a href="" className="font-bold"><img src="./assets/img/bsc.png" className="inline mr-4 w-8"  />BSC MAINNET</a>
+              <a href="" className="font-bold"><img alt="" src="./assets/img/bsc.png" className="inline mr-4 w-8"  />BSC MAINNET</a>
             </Col>
           </Row>
           <Row className="justify-center">

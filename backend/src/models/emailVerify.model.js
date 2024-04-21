@@ -2,8 +2,8 @@
 
 const query = require('../db/db-connection');
 const { multipleColumnSet } = require('../utils/common.utils');
-const Role = require('../utils/userRoles.utils');
-const HttpException = require('../utils/HttpException.utils');
+//const Role = require('../utils/userRoles.utils');
+//const HttpException = require('../utils/HttpException.utils');
 class EmailVerifyModel {
     tableName = 'email_verify';
 
@@ -67,4 +67,4 @@ class EmailVerifyModel {
     }
 }
 
-module.exports = new EmailVerifyModel;
+module.exports = new EmailVerifyModel();

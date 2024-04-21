@@ -1,9 +1,9 @@
-import { Button,Row,Col } from 'antd';
-import {useEffect,useState,useRef} from "react";
-import { motion } from "framer-motion";
-import { Link } from "react-router-dom";
+import { Col } from 'antd';
+import {useState} from "react";
+// import { motion } from "framer-motion";
+// import { Link } from "react-router-dom";
 import ShoppingCard from "../component/ShoppingCard";
-const delay = 5000;
+//const delay = 5000;
 const card=[
   {url:'/assets/img/launchpad.png',link:'http://ieo.mglcoin.io/'},
   {url:'/assets/img/tokeninfo.png',link:'http://info.mglcoin.io/'},
@@ -12,7 +12,7 @@ const card=[
 ]
 function Mark() {
 const [index, setIndex] = useState(0);
-const timeoutRef = useRef(null);
+//const timeoutRef = useRef(null);
 
 
   return (
@@ -22,7 +22,7 @@ const timeoutRef = useRef(null);
         card.map((item,idx)=>(
           <Col key={idx} sm={24} md={6} className="p-2 inline-block w-full">
             
-            <ShoppingCard url={item.url}link={item.link} key={idx} real={idx==1}/>
+            <ShoppingCard url={item.url}link={item.link} key={idx} real={idx===1}/>
             
           </Col>
         ))

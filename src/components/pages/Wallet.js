@@ -1,7 +1,7 @@
-import React, { useState, useEffect,useCallback, useContext } from 'react';
-import { Button,Row,Col,Drawer,Typography  } from 'antd';
-import { Link ,useParams} from "react-router-dom";
-import {AiOutlineLoading3Quarters,AiFillCloseCircle,AiOutlineCheck,AiTwotoneEnvironment,AiOutlineLogout} from "react-icons/ai"
+import React, { useState, useEffect, useContext, useRef, useCallback } from 'react';
+import { Row,Col,Drawer,Typography  } from 'antd';
+import { useParams} from "react-router-dom";
+import {AiFillCloseCircle,AiOutlineCheck,AiTwotoneEnvironment,AiOutlineLogout} from "react-icons/ai"
 import ReactLoading from 'react-loading';
 import QRCode from "qrcode.react";
 import axios from 'axios';
@@ -16,18 +16,18 @@ import WalletManageKeys from '../views/WalletManageKeys';
 import WalletProfile from '../views/WalletProfile';
 import WalletBuy from '../views/Wallet/WalletBuy';
 import setAuthToken from "../../utils/setAuthToken"
-import WalletUtil from "../../utils/wallet"
+//import WalletUtil from "../../utils/wallet"
 import openNotification from "../helpers/notification";
 import WalletLoadingModal from "../component/WalletComponents/WalletLoadingModal";
 import {SERVER_URL, networks} from "../../constants/env";
 import {getTokenBaseInfo, getTokenBalance, getTokenPriceInUsd} from "../../utils/tokenUtils";
 
 const { Paragraph } = Typography;
-const initTokenList=[
-  {name:"MGL",price:0,balance:0,address:""},
-]
+// const initTokenList=[
+//   {name:"MGL",price:0,balance:0,address:""},
+// ]
 function Wallet() {
-  const [t,i18n] = useTranslation();
+  const [t] = useTranslation();
   const [idx,setIdx]=useState(0);
   const [tokens,setTokens]=useState([]);
   const [network, setNetwork] = useState(networks[2]);
@@ -35,49 +35,91 @@ function Wallet() {
   const [loading,setLoading] = useState(false);
   const [totalPrice, setTotalPrice] = useState(0);
   const [connection,setConnection] = useState(true);
-  const [publicKey,setPublicKey]=useState(localStorage.getItem("publicKey"));
+  const [publicKey,]=useState(localStorage.getItem("publicKey"));
   const [stopMode, setStopMode] = useState(true);
   const [visible, setVisible] = useState(false);
   const [transations,setTransactions] = useState([]);
   const {id, presaleToken, chainId} = useParams();
   const presaleData = useContext(PresaleContext);
   const walletData = useContext(WalletContext);
-  const wallet = new WalletUtil()
+  //const wallet = new WalletUtil()
   const serverUrl =SERVER_URL;
-  let frequent;
 
+  const getAssets= useCallback(async ()=>{
+    walletData.getTokenList();
+    setConnection(true);
+    setLoading(true);
+    setAuthToken(localStorage.jwtToken)
+    axios.post(serverUrl + "wallets/getassets", {
+      network:network.url,
+      publicKey: publicKey
+    }).then((response)=>{
+       if (response.data.response) {
+        setTokens(response.data.data);
+       }
+    })
+    .catch(err=>{
 
+      setConnection(false);
+    })
+}, [network.url, publicKey, serverUrl, walletData])
+
+const getTransaction= useCallback(async ()=>{
+    walletData.getTransaction();
+    
+    setConnection(true);
+    setAuthToken(localStorage.jwtToken)
+    axios.post(serverUrl + "wallets/gettransaction", {
+      network:network.url,
+      publicKey: publicKey
+    }).then((response)=>{
+       if (response.data.response) {
+        let oldtransaction=[];
+        response.data.data.map(item=>oldtransaction.push(item.hash));
+        setTransactions(oldtransaction);
+       }
+    }).catch(err=>{
+      
+      setConnection(false);
+    })
+},[network.url, publicKey, serverUrl, walletData])
+
+  const frequent = useRef(null);
   useEffect(()=>{
     if(id)
       setIdx(parseInt(id));
     getAssets();
     getTransaction();
-    frequent=setInterval(getAssets, 1000 * 60);
+    frequent.current=setInterval(getAssets, 1000 * 60);
     if(!publicKey)
       openNotification("Wallet Access failed.","You are not allowed!",false,()=>window.location.href="/walletMain")
     return () => {
-      clearInterval(frequent);
+      clearInterval(frequent.current);
     }
-  },[])
-  useEffect(async()=>{
-    if(id && presaleToken && chainId){
-      let findNetwork = networks.filter(item=>item.chainId===chainId);
-      let info = await getTokenBaseInfo(presaleToken, findNetwork[0].url);
-      // let price = await getTokenPriceInUsd(findNetwork[0], presaleToken);
-      let price = 0.018;
-      presaleData.setPresaleData({
-        ...info,
-        id:id,
-        toToken:presaleToken,
-        network:findNetwork[0],
-        price:price.toFixed(3)
-      })
-    }
-  },[id,presaleToken,chainId])
-  const initFunction=async()=>{
+  },[getAssets,getTransaction, id, publicKey])
 
-  }
-  const getTokenInfo=async()=>{
+useEffect(() => {
+    async function fetchData() {
+        if(id && presaleToken && chainId){
+            let findNetwork = networks.filter(item=>item.chainId===chainId);
+            let info = await getTokenBaseInfo(presaleToken, findNetwork[0].url);
+            let price = 0.018;
+            presaleData.setPresaleData({
+                ...info,
+                id:id,
+                toToken:presaleToken,
+                network:findNetwork[0],
+                price:price.toFixed(3)
+            })
+        }
+    }
+    fetchData();
+}, [id, presaleToken, chainId, presaleData]);
+
+  // const initFunction=async()=>{
+
+  // }
+  const getTokenInfo= useCallback(async()=>{
  
       setConnection(true);
       try {
@@ -105,57 +147,13 @@ function Wallet() {
       }
 
       setLoading(false);
-  }
+  }, [network, tokens, publicKey, setConnection, setLoading])
 
 
-   function findTokenName(tokenAddress) {
-    return network.tokenList[tokenAddress].symbol;
-  }
+  //  function findTokenName(tokenAddress) {
+  //   return network.tokenList[tokenAddress].symbol;
+  // }
 
-  const getAssets=async ()=>{
-      walletData.getTokenList();
-      setConnection(true);
-      setLoading(true);
-      setAuthToken(localStorage.jwtToken)
-      axios.post(serverUrl + "wallets/getassets", {
-        network:network.url,
-        publicKey: publicKey
-      }).then((response)=>{
-         if (response.data.response) {
-          setTokens(response.data.data);
-         }
-      })
-      .catch(err=>{
-
-        setConnection(false);
-      })
-
-   
-    
-  }
-
-  const getTransaction=async ()=>{
-      walletData.getTransaction();
-      
-      setConnection(true);
-      setAuthToken(localStorage.jwtToken)
-      axios.post(serverUrl + "wallets/gettransaction", {
-        network:network.url,
-        publicKey: publicKey
-      }).then((response)=>{
-         if (response.data.response) {
-          let oldtransaction=[];
-          response.data.data.map(item=>oldtransaction.push(item.hash));
-          setTransactions(oldtransaction);
-         }
-      }).catch(err=>{
-        
-        setConnection(false);
-      })
-
-  
-    
-  }
   const reload=()=>{
     walletData.getTokenList();
     walletData.getTransaction();
@@ -175,13 +173,13 @@ function Wallet() {
   useEffect(()=>{
     if(tokens.length>0)
       getTokenInfo();
-  },[tokens])
+  },[tokens, network, getTokenInfo])
   useEffect(()=>{
     if(network)
       getTransaction();
     if(tokens.length>0)
       getAssets();
-  },[network])
+  },[network, getTransaction, getAssets, tokens])
 
   useEffect(()=>{
     if(tokensInfo.length>0)

@@ -5,7 +5,7 @@ import {
     DollarCircleOutlined,
     EditOutlined,
     FacebookOutlined,
-    SkypeOutlined,
+    /*SkypeOutlined,*/
     PhoneOutlined,
     LoadingOutlined,
     PlusOutlined,
@@ -223,7 +223,7 @@ function P2PTableView() {
 
     useEffect(() => {
         getP2PData(currPageNum, itemPerPage);
-    }, [])
+    }, [currPageNum, itemPerPage])
 
     return (
         <Content style={{ margin: '24px 16px 0' }}>
@@ -241,7 +241,7 @@ function P2PTableView() {
                     </Col>
                 </Row>
                 <Table dataSource={orderList} pagination={pagination} onChange={handleTableChange} loading={isLoading}>
-                    <Column title="Seller" render={(text, record) => <div className="flex items-center"><img className="w-5 h-5 rounded-full mr-2" src={record.profile_pic} />{record.seller_name}</div>} key="seller_name" />
+                    <Column title="Seller" render={(text, record) => <div className="flex items-center"><img alt="" className="w-5 h-5 rounded-full mr-2" src={record.profile_pic} />{record.seller_name}</div>} key="seller_name" />
                     <Column title="Currency" dataIndex="currency" key="currency" />
                     <Column title="Amount" render={(text, record) => record.currency === 'USDT' ? record.amount_usdt : record.amount_mgl} key="amount" />
                     <Column title="Payment Method" render={(text, record) => record.payment_method.replaceAll(',', '/')} key="method" />

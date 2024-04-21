@@ -1,15 +1,13 @@
-import { Button ,Card,Input,Row, Col,Checkbox,Form } from 'antd';
+import { Input, Form } from 'antd';
 import React, { useState, useEffect,useContext } from 'react';
 import { Link } from "react-router-dom";
 import axios from "axios";
-import { List, message, Avatar, Skeleton, Divider } from 'antd';
+// import { List, message, Avatar, Skeleton, Divider } from 'antd';
 import { 
-  MailOutlined ,
-  SafetyOutlined,
+  MailOutlined,
   LockOutlined,
-  TeamOutlined ,
-  EyeTwoTone,
-  EyeInvisibleOutlined} from '@ant-design/icons';
+} from '@ant-design/icons';
+
 import { useTranslation } from 'react-i18next';
 import { UserContext } from '../providers/UserProvider';
 import RegCard from '../component/RegCard';
@@ -18,21 +16,22 @@ import openNotification from "../helpers/notification";
 import {SERVER_URL} from "../../constants/env";
 import Wallet from "../../utils/wallet";
 const wallet = new Wallet();
+const serverUrl=SERVER_URL;
+
 function Register(props) {
   const userData = useContext(UserContext);
 
-  const [t,i18n] = useTranslation();
+  const [t,] = useTranslation();
   const [form] = Form.useForm();
   const[email,setEmail]=useState("");
   const[password,setPassword]=useState("password");
-  const serverUrl=SERVER_URL;
-  const onChange=(e)=>{
-    console.log(`checked = ${e.target.checked}`);
-  };
+  // const onChange=(e)=>{
+  //   console.log(`checked = ${e.target.checked}`);
+  // };
   useEffect(() => {
   }, []);
 
-  const login=()=>{
+  const login= ()=>{
     
     return form.validateFields()
             .then((values) => {
@@ -41,39 +40,39 @@ function Register(props) {
                 email:email,
                 password:password
               });
-              // axios.post(serverUrl+"users/login",{
-              //   email:email,
-              //   password:password
-              // }).then(response=>{
-              //   if(response.data.response){
+               axios.post(serverUrl+"users/login",{
+                 email:email,
+                 password:password
+               }).then(response=>{
+                 if(response.data.response){
                   
-              //     // setMessage({style:'text-green-500',val:true,data:"Successful! Welcome to our site."});
-              //     localStorage.setItem("userInfo", JSON.stringify(response.data.data.userInfo));
-              //     localStorage.setItem("jwtToken", JSON.stringify(response.data.data.token));
-              //     console.log(response.data.data)
-              //     if(response.data.data.keyPair){
-              //       localStorage.setItem("privateKey",wallet.decrypt(response.data.data.keyPair[0].privateKey));
-              //       localStorage.setItem("publicKey",response.data.data.keyPair[0].publicKey);
-              //     }
-              //     openNotification(t('Successful'),t('Welcome to our site.'), true,goMain);
-              //     setAuthToken(response.data.data.token);
-              //   }
-              //   else{
-              //     openNotification(t('Login Failed'),response.data.message,false);
-              //     // setMessage({style:'text-red-500',val:false,data:"Login failed! "})
-              //   }
+                   //setMessage({style:'text-green-500',val:true,data:"Successful! Welcome to our site."});
+                   localStorage.setItem("userInfo", JSON.stringify(response.data.data.userInfo));
+                   localStorage.setItem("jwtToken", JSON.stringify(response.data.data.token));
+                   console.log(response.data.data)
+                   if(response.data.data.keyPair){
+                     localStorage.setItem("privateKey",wallet.decrypt(response.data.data.keyPair[0].privateKey));
+                     localStorage.setItem("publicKey",response.data.data.keyPair[0].publicKey);
+                   }
+                   openNotification(t('Successful'),t('Welcome to our site.'), true,goMain);
+                   setAuthToken(response.data.data.token);
+                 }
+                 else{
+                   openNotification(t('Login Failed'),response.data.message,false);
+                   // setMessage({style:'text-red-500',val:false,data:"Login failed! "})
+                 }
                 
-              // })
+               })
 
 
             })
             .catch((errorInfo) => {});           
   }
-  const logout=()=>{
-    localStorage.removeItem("user");
-  }
+  // const logout=()=>{
+  //    localStorage.removeItem("user");
+  // }
   const goMain=()=>{
-      window.location.href="/";
+       window.location.href="/";
   }
   
   return (

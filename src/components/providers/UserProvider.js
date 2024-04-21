@@ -1,4 +1,4 @@
-import React, { useState, useEffect,useCallback } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useTranslation } from 'react-i18next'
 import setAuthToken from "../../utils/setAuthToken"
@@ -8,9 +8,9 @@ import Wallet from "../../utils/wallet";
 
 const userContextTemplate = {
     useInfo: String,
-    userRegister: (requestData: Object) => {},
-    sendEmail: (requestData: Object) => {},
-    login: (requestData: Object) => {},
+    userRegister: () => {},
+    sendEmail: () => {},
+    login: () => {},
     jwtInfo: String,
     wallet: Wallet
 }
@@ -18,7 +18,7 @@ const UserContext = React.createContext(userContextTemplate);
 
 
 function UserProvider(props) {
-  const {t,i18n} = useTranslation();
+  const {t,/*i18n*/} = useTranslation();
   const [useInfo, setUserInfo] = useState("");
   const [jwtInfo, setJwtInfo] = useState("");
   const wallet = new Wallet();
@@ -81,10 +81,14 @@ function UserProvider(props) {
       window.location.href="/";
   }
 
+  const userInfo = localStorage.getItem("userInfo");
+  const jwtToken = localStorage.getItem("jwtToken");
+
   useEffect(()=>{
-    setUserInfo(localStorage.getItem("userInfo"));
-    setJwtInfo(localStorage.getItem("jwtToken"));
-  },[localStorage.getItem("userInfo"),localStorage.getItem("jwtToken")])
+    setUserInfo(userInfo);
+    setJwtInfo(jwtToken);
+  }, [userInfo, jwtToken]);
+  
   return(
           <UserContext.Provider value={{
             useInfo,

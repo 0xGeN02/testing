@@ -1,4 +1,4 @@
-import { Button,Dropdown } from 'antd';
+import { /*Button,*/Dropdown } from 'antd';
 import {useState} from "react";
 import ReactCountryFlag from "react-country-flag"
 import { useTranslation } from 'react-i18next'
@@ -8,10 +8,10 @@ const data = [
   {lang:"Mn",code:"MN"},
 ]
 function LangSelect(props) {
-  const [langData,setData] = useState(data);
-  const [show,setShow] = useState(false);
+  const [langData] = useState(data);
+  //const [show,setShow] = useState(false);
   const [sel,setSel] = useState(localStorage.getItem('locale') === "En" ? 0 : 1);
-  const [t,i18n] = useTranslation();
+  const [/*t*/,i18n] = useTranslation();
   
   const onSelectLanguage = (idx)=>{
     setSel(idx);

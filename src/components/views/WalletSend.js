@@ -1,26 +1,26 @@
 import {useState,useEffect,useCallback, useContext} from 'react'
-import { Button,Row,Col,Input,Select } from 'antd';
-import {AiFillCamera} from "react-icons/ai";
+import { Row,Col,Input,Select } from 'antd';
+// import {AiFillCamera} from "react-icons/ai";
 import axios from 'axios';
-import { Link, Navigate } from "react-router-dom";
+import { Navigate } from "react-router-dom";
 import { useTranslation } from 'react-i18next';
 import setAuthToken from "../../utils/setAuthToken"
-import Wallet from "../../utils/wallet"
+//import Wallet from "../../utils/wallet"
 import {SERVER_URL} from "../../constants/env";
 import openNotification from "../helpers/notification";
 import WalletSendModal from "../component/WalletSendModal";
 import WalletPresaleModal from "../component/WalletComponents/WalletPresaleModal";
-import {getTokenBaseInfo,getTokenType,getEstimatedGasLimit} from "../../utils/tokenUtils";
+import {getTokenType,getEstimatedGasLimit} from "../../utils/tokenUtils";
 import {PresaleContext} from '../providers/PresaleProvider';
 const { TextArea } = Input;
 const { Option } = Select;
 
 function WalletSend(props) {
-  const wallet = new Wallet()
-  const [t,i18n] = useTranslation();
+  //const wallet = new Wallet()
+  const [t,/*i18n*/] = useTranslation();
   const serverUrl = SERVER_URL
   const publicKey = localStorage.publicKey
-  const privateKey = localStorage.privateKey
+  //const privateKey = localStorage.privateKey
   const [amount, setAmount] = useState(0)
   const [balance,setBalance] = useState(0)
   const [sel, setSel] = useState(0)
@@ -30,7 +30,7 @@ function WalletSend(props) {
   const [presaleModal, setPresaleModal] = useState(false);
   const presaleData = useContext(PresaleContext);
   const [presaleMode, setPresaleMode] = useState(false);
-  const [navigate, setNavigate] = useState(false);
+  const [navigate,] = useState(false);
   useEffect(()=>{
     if(presaleData.presaleData.toToken){
       setPresaleMode(true)
@@ -160,7 +160,7 @@ function WalletSend(props) {
     
   }
   const showSendModal = async()=>{
-    if(amount === 0 || destination == "")
+    if(amount === 0 || destination === "")
     {
       openNotification("Warn","check destination or amount!",false,null);
       return false;

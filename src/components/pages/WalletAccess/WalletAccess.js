@@ -1,8 +1,8 @@
 import { useState,useEffect } from 'react';
 import { Button, Row, Col, Input } from 'antd';
 import { Link ,useParams} from "react-router-dom";
-import Icon from "react-crypto-icons";
-import { motion, useViewportScroll } from "framer-motion"
+// import Icon from "react-crypto-icons";
+// import { motion, useViewportScroll } from "framer-motion"
 import axios from 'axios';
 import { useTranslation } from 'react-i18next';
 import Nav from "../../component/Nav"
@@ -18,7 +18,7 @@ const { TextArea } = Input;
 
 
 function Launch(props) {
-    const [t,i18n] = useTranslation();
+    const [t,/*i18n*/] = useTranslation();
 
     const routeParams=useParams();
     const [accessMode, setAccessMode] = useState(0)
@@ -55,7 +55,7 @@ function Launch(props) {
         if(!localStorage.getItem("userInfo")){
             openNotification(t("Access failed."),t("Please log in."),false,()=>window.location.href="/")
         }
-    },[])
+    },[routeParams.id, t])
 
     function onInputPrivateKey(val) {
         setPrivateKey(val)
@@ -63,7 +63,7 @@ function Launch(props) {
 
     async function accessWalletWithPrivateKey() {
         setAuthToken(localStorage.jwtToken)
-        const response = await axios.post(serverUrl + "wallets/access/privatekey", {
+        await axios.post(serverUrl + "wallets/access/privatekey", {
             privateKey: wallet.encrypt(privateKey)
         }).then((response)=>{
             if(response.data.response){
@@ -78,7 +78,7 @@ function Launch(props) {
     
     async function accessWalletWithKeyphrase() {
         setAuthToken(localStorage.jwtToken)
-        const response = await axios.post(serverUrl + "wallets/access/keyphrase", {
+        await axios.post(serverUrl + "wallets/access/keyphrase", {
             keyphrase: wallet.encrypt(mnemonic)
         })
         .then((response)=>{
@@ -97,7 +97,7 @@ function Launch(props) {
 
     return (
         <div className="relative">
-            <img src="/assets/img/background_main.png" />
+            <img alt="" src="/assets/img/background_main.png" />
             <div className="absolute top-0 w-full h-full flex flex-col ">
                 <Nav className="w-11/12 xl:w-5/6 m-auto " />
                 {(accessMode === 0) ? <div className="w-5/6 lg:w-4/5 m-auto my-12 flex-grow">

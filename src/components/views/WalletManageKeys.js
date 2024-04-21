@@ -1,4 +1,4 @@
-import { Button, Col,Row } from 'antd';
+import {  Col,Row } from 'antd';
 import {useState} from 'react';
 import axios from 'axios';
 import { useTranslation } from 'react-i18next';
@@ -10,8 +10,8 @@ import setAuthToken from "../../utils/setAuthToken"
 import Wallet from "../../utils/wallet";
 import openNotification from "../helpers/notification";
 function WalletManageKeys(props) {
-  const [t,i18n] = useTranslation();
-  const [address,setAddress] = useState(localStorage.getItem("publicKey"));
+  const [t,/*i18n*/] = useTranslation();
+  const [address,] = useState(localStorage.getItem("publicKey"));
   const [content,setContent] = useState("No information!");
   const [contentType,setContentType] = useState({name:"privateKey",title:"PrivateKey"});
   const [contentModal,setContentModal] = useState(false);

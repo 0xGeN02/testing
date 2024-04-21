@@ -1,7 +1,8 @@
-import { useState,useEffect } from 'react';
-import { Button, Row, Col ,Typography} from 'antd';
+//import { useState,useEffect } from 'react';
+import { /*Button, Row, Col ,*/Typography} from 'antd';
 import WalletModal from ".//WalletModal";
-import axios from 'axios';
+//import axios from 'axios';
+
 function WalletAlert(props) {
 
     const { Paragraph } = Typography;

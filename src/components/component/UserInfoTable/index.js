@@ -1,4 +1,4 @@
-import { useState } from "react";
+//import { useState } from "react";
 import NoDataImage from "../../../assets/image/nodata.svg";
 import MGLImage from '../../../assets/image/mgl.svg';
 
@@ -28,12 +28,12 @@ function UserInfoTable(props) {
             <tbody class="divide-y divide-gray-200">
                 {
                     !items
-                        ? <tr><td colSpan={5}><div className="w-full flex justify-center my-4"><div className="text-sm flex flex-col items-center"><img src={NoDataImage} />No Ads</div></div></td></tr>
+                        ? <tr><td colSpan={5}><div className="w-full flex justify-center my-4"><div className="text-sm flex flex-col items-center"><img alt="" src={NoDataImage} />No Ads</div></div></td></tr>
                         : <tr className="bg-white rounded-lg">
                             <td class="pr-6 py-4 whitespace-nowrap">
                                 <div class="flex items-center">
                                     <div class="ml-4 flex items-center">
-                                        <img className="w-10 h-10 mr-2" src={MGLImage} />
+                                        <img alt="" className="w-10 h-10 mr-2" src={MGLImage} />
                                         <div href="/userinfo" class="text-sm font-medium text-gray-900 flex cursor-pointer">
                                             MGL
                                         </div>

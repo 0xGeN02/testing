@@ -2,8 +2,8 @@
 
 const query = require('../db/db-connection');
 const { multipleColumnSet } = require('../utils/common.utils');
-const Role = require('../utils/userRoles.utils');
-const HttpException = require('../utils/HttpException.utils');
+//const Role = require('../utils/userRoles.utils');
+//const HttpException = require('../utils/HttpException.utils');
 
 class IEOModel {
     tableName = 'ieo';
@@ -81,4 +81,4 @@ class IEOModel {
     }
 }
 
-module.exports = new IEOModel;
+module.exports = new IEOModel();
